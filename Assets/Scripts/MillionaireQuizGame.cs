@@ -60,21 +60,40 @@ public sealed class MillionaireQuizGame : MonoBehaviour
 
     private void CreateQuestions()
     {
-        for (int i = 0; i < questions.Length; i++)
+        questions[0] = new QuestionData
         {
-            questions[i] = new QuestionData
-            {
-                Text = "здесь будет вопрос",
-                CorrectAnswerIndex = i % AnswersCount,
-                Answers = new[]
-                {
-                    "здесь будет ответ №1",
-                    "здесь будет ответ №2",
-                    "здесь будет ответ №3",
-                    "здесь будет ответ №4"
-                }
-            };
-        }
+            Text = "кто?",
+            CorrectAnswerIndex = 0,
+            Answers = new[] { "собака", "кошка", "хомяк", "кролик" }
+        };
+
+        questions[1] = new QuestionData
+        {
+            Text = "где?",
+            CorrectAnswerIndex = 1,
+            Answers = new[] { "в городе", "в деревне", "в поле", "в космосе" }
+        };
+
+        questions[2] = new QuestionData
+        {
+            Text = "когда?",
+            CorrectAnswerIndex = 2,
+            Answers = new[] { "сегодня", "завтра", "вчера", "никогда" }
+        };
+
+        questions[3] = new QuestionData
+        {
+            Text = "что?",
+            CorrectAnswerIndex = 3,
+            Answers = new[] { "позавтракал", "поспал", "погулял", "поработал" }
+        };
+
+        questions[4] = new QuestionData
+        {
+            Text = "почему?",
+            CorrectAnswerIndex = 0,
+            Answers = new[] { "захотелось", "надо было", "приказали", "попросили" }
+        };
     }
 
     private void CreateEventSystem()
@@ -161,10 +180,13 @@ public sealed class MillionaireQuizGame : MonoBehaviour
             Button button = CreateButton(parent, "Answer " + (i + 1), string.Empty, positions[i], new Vector2(610f, 100f),
                 () => SelectAnswer(answerIndex));
             Text label = button.GetComponentInChildren<Text>();
-            label.alignment = TextAnchor.MiddleLeft;
+            label.alignment = TextAnchor.MiddleCenter;
             label.fontSize = 30;
-            label.rectTransform.offsetMin = new Vector2(42f, 0f);
-            label.rectTransform.offsetMax = new Vector2(-24f, 0f);
+            label.rectTransform.anchorMin = Vector2.zero;
+            label.rectTransform.anchorMax = Vector2.one;
+            label.rectTransform.pivot = new Vector2(0.5f, 0.5f);
+            label.rectTransform.offsetMin = Vector2.zero;
+            label.rectTransform.offsetMax = Vector2.zero;
 
             answerButtons[i] = button;
             answerLabels[i] = label;
