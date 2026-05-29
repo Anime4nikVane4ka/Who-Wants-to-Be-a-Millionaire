@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public sealed class MillionaireQuizGame : MonoBehaviour
 {
-    private const int QuestionsCount = 5;
+    private const int QuestionsCount = 8;
     private const int AnswersCount = 4;
 
     private static readonly Color BackgroundColor = new Color(0.03f, 0.05f, 0.16f);
@@ -16,8 +16,11 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private static readonly Color CorrectColor = new Color(0.13f, 0.58f, 0.27f);
     private static readonly Color WrongColor = new Color(0.75f, 0.16f, 0.18f);
     private static readonly Color GoldColor = new Color(0.96f, 0.73f, 0.24f);
+    private static readonly Color QrLightColor = new Color(0.94f, 0.94f, 0.9f);
+    private static readonly Color QrDarkColor = new Color(0.02f, 0.025f, 0.04f);
 
     private readonly QuestionData[] questions = new QuestionData[QuestionsCount];
+    private QuestionData superQuestion;
     private Button[] answerButtons;
     private Text[] answerLabels;
     private Text questionLabel;
@@ -25,6 +28,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private Text feedbackTitleLabel;
     private Text feedbackMessageLabel;
     private Text finalScoreLabel;
+    private Text finalRewardLabel;
     private GameObject startScreen;
     private GameObject questionScreen;
     private GameObject feedbackScreen;
@@ -34,6 +38,8 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private int currentQuestionIndex;
     private int correctAnswers;
     private bool answerLocked;
+    private bool superGameActive;
+    private bool superGamePlayed;
     private Coroutine feedbackRoutine;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -62,37 +68,65 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     {
         questions[0] = new QuestionData
         {
-            Text = "кто?",
-            CorrectAnswerIndex = 0,
-            Answers = new[] { "собака", "кошка", "хомяк", "кролик" }
+            Text = "Соглашение сторон о порядке разрешения возможных споров это:",
+            CorrectAnswerIndex = 3,
+            Answers = new[] { "(А) Народная поговорка", "(Б) Юридическая скороговорка", "(В) Правовая отговорка", "(Г) Арбитражная оговорка" }
         };
 
         questions[1] = new QuestionData
         {
-            Text = "где?",
-            CorrectAnswerIndex = 1,
-            Answers = new[] { "в городе", "в деревне", "в поле", "в космосе" }
+            Text = "За нарушение обязательства может наступить:",
+            CorrectAnswerIndex = 0,
+            Answers = new[] { "(А) Ответственность", "(Б) Безответственность", "(В) Посредственность", "(Г) Собственность" }
         };
 
         questions[2] = new QuestionData
         {
-            Text = "когда?",
-            CorrectAnswerIndex = 2,
-            Answers = new[] { "сегодня", "завтра", "вчера", "никогда" }
+            Text = "Что у юристов означает выражение: «Применить триста тридцать третью»?",
+            CorrectAnswerIndex = 1,
+            Answers = new[] { "(А) Снижение арбитражного сбора", "(Б) Снижение размера неустойки", "(В) Снижение цены иска", "(Г) Снижение наказания ниже низшего предела" }
         };
 
         questions[3] = new QuestionData
         {
-            Text = "что?",
-            CorrectAnswerIndex = 3,
-            Answers = new[] { "позавтракал", "поспал", "погулял", "поработал" }
+            Text = "Что такое третейский суд?",
+            CorrectAnswerIndex = 2,
+            Answers = new[] { "(А) Постоянно действующее арбитражное учреждение", "(Б) Рекомендованный список арбитров", "(В) Единоличный арбитр или коллегия арбитров", "(Г) Арбитражный суд" }
         };
 
         questions[4] = new QuestionData
         {
-            Text = "почему?",
-            CorrectAnswerIndex = 0,
-            Answers = new[] { "захотелось", "надо было", "приказали", "попросили" }
+            Text = "Принцип беспристрастности относится к:",
+            CorrectAnswerIndex = 3,
+            Answers = new[] { "(А) Сторонам спора", "(Б) Арбитражной оговорке", "(В) Арбитражному учреждению", "(Г) Арбитру" }
+        };
+
+        questions[5] = new QuestionData
+        {
+            Text = "Какова правовая природа арбитража?",
+            CorrectAnswerIndex = 3,
+            Answers = new[] { "(А) Договорная", "(Б) Процессуальная", "(В) Смешанная", "(Г) Чтобы разобраться нужно оформить подписку на журнал «Третейский суд»." }
+        };
+
+        questions[6] = new QuestionData
+        {
+            Text = "В договоре поставки отсутствует соглашение сторон о неустойке, но истец требует ее взыскать. В этом случае третейский суд должен:",
+            CorrectAnswerIndex = 1,
+            Answers = new[] { "(А) Отказать во взыскании", "(Б) Взыскать неустойку в размере ключевой ставки ЦБ РФ", "(В) Взыскать неустойку в двойном размере ключевой ставки ЦБ РФ", "(Г) Третейский суд никому ничего не должен. Он ведь третейский суд." }
+        };
+
+        questions[7] = new QuestionData
+        {
+            Text = "Право стороны на односторонний отказ от исполнения обязательства может быть реализовано:",
+            CorrectAnswerIndex = 2,
+            Answers = new[] { "(А) Если это право предусмотрено договором", "(Б) Если это право предусмотрено законом или договором", "(В) Разумно и добросовестно, если это право предусмотрено законом или договором", "(Г) Обязательство должно исполняться в любом случае" }
+        };
+
+        superQuestion = new QuestionData
+        {
+            Text = "Этот ученый правовед в 1981 году защитил кандидатскую диссертацию на тему: «Динамика обязательственного правоотношения и гражданско-правовая ответственность», а в 1994 году защитил докторскую диссертацию на тему «Проблемы правового режима предпринимательства». Назовите этого ученого:",
+            CorrectAnswerIndex = 1,
+            Answers = new[] { "(А) Евгений Борисович Хохлов", "(Б) Владимир Фёдорович Попондопуло", "(Г) Константин Константинович Лебедев", "(Д) Валерий Абрамович Мусин" }
         };
     }
 
@@ -159,29 +193,35 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         progressLabel = CreateText(parent, "Progress", string.Empty, 30, FontStyle.Bold, TextAnchor.MiddleCenter,
             new Vector2(0.5f, 0.88f), new Vector2(460f, 58f), GoldColor);
 
-        RectTransform questionPanel = CreatePanel(parent, "Question Panel", new Vector2(0.5f, 0.66f), new Vector2(1320f, 210f), PanelColor);
-        questionLabel = CreateText(questionPanel, "Question", string.Empty, 44, FontStyle.Bold, TextAnchor.MiddleCenter,
-            new Vector2(0.5f, 0.5f), new Vector2(1180f, 150f), Color.white);
+        RectTransform questionPanel = CreatePanel(parent, "Question Panel", new Vector2(0.5f, 0.68f), new Vector2(1460f, 300f), PanelColor);
+        questionLabel = CreateText(questionPanel, "Question", string.Empty, 38, FontStyle.Bold, TextAnchor.MiddleCenter,
+            new Vector2(0.5f, 0.5f), new Vector2(1360f, 240f), Color.white);
+        questionLabel.resizeTextForBestFit = true;
+        questionLabel.resizeTextMinSize = 18;
+        questionLabel.resizeTextMaxSize = 38;
 
         answerButtons = new Button[AnswersCount];
         answerLabels = new Text[AnswersCount];
 
         Vector2[] positions =
         {
-            new Vector2(0.32f, 0.41f),
-            new Vector2(0.68f, 0.41f),
-            new Vector2(0.32f, 0.25f),
-            new Vector2(0.68f, 0.25f)
+            new Vector2(0.29f, 0.40f),
+            new Vector2(0.71f, 0.40f),
+            new Vector2(0.29f, 0.22f),
+            new Vector2(0.71f, 0.22f)
         };
 
         for (int i = 0; i < AnswersCount; i++)
         {
             int answerIndex = i;
-            Button button = CreateButton(parent, "Answer " + (i + 1), string.Empty, positions[i], new Vector2(610f, 100f),
+            Button button = CreateButton(parent, "Answer " + (i + 1), string.Empty, positions[i], new Vector2(760f, 118f),
                 () => SelectAnswer(answerIndex));
             Text label = button.GetComponentInChildren<Text>();
             label.alignment = TextAnchor.MiddleCenter;
-            label.fontSize = 30;
+            label.fontSize = 26;
+            label.resizeTextForBestFit = true;
+            label.resizeTextMinSize = 18;
+            label.resizeTextMaxSize = 26;
             label.rectTransform.anchorMin = Vector2.zero;
             label.rectTransform.anchorMax = Vector2.one;
             label.rectTransform.pivot = new Vector2(0.5f, 0.5f);
@@ -206,19 +246,67 @@ public sealed class MillionaireQuizGame : MonoBehaviour
 
     private void CreateFinalScreen(Transform parent)
     {
-        CreateText(parent, "Final Title", "Викторина завершена", 70, FontStyle.Bold, TextAnchor.MiddleCenter,
-            new Vector2(0.5f, 0.64f), new Vector2(1000f, 100f), GoldColor);
+        CreateText(parent, "Final Title", "Викторина завершена", 56, FontStyle.Bold, TextAnchor.MiddleCenter,
+            new Vector2(0.5f, 0.9f), new Vector2(1000f, 80f), GoldColor);
 
-        finalScoreLabel = CreateText(parent, "Final Score", string.Empty, 40, FontStyle.Normal, TextAnchor.MiddleCenter,
-            new Vector2(0.5f, 0.5f), new Vector2(980f, 90f), Color.white);
+        CreateQrPlaceholder(parent);
 
-        CreateButton(parent, "Restart Button", "Начать заново", new Vector2(0.5f, 0.34f), new Vector2(430f, 94f), StartQuiz);
+        finalScoreLabel = CreateText(parent, "Final Score", string.Empty, 34, FontStyle.Bold, TextAnchor.MiddleCenter,
+            new Vector2(0.5f, 0.37f), new Vector2(1200f, 70f), Color.white);
+
+        finalRewardLabel = CreateText(parent, "Final Reward Message", string.Empty, 28, FontStyle.Normal, TextAnchor.MiddleCenter,
+            new Vector2(0.5f, 0.23f), new Vector2(1420f, 140f), Color.white);
+        finalRewardLabel.resizeTextForBestFit = true;
+        finalRewardLabel.resizeTextMinSize = 20;
+        finalRewardLabel.resizeTextMaxSize = 28;
+
+        CreateButton(parent, "Restart Button", "Начать заново", new Vector2(0.5f, 0.12f), new Vector2(430f, 86f), StartQuiz);
+    }
+
+    private void CreateQrPlaceholder(Transform parent)
+    {
+        RectTransform qrFrame = CreatePanel(parent, "QR Code Placeholder", new Vector2(0.5f, 0.61f), new Vector2(310f, 310f), QrLightColor);
+
+        CreateText(qrFrame, "QR Label", "QR", 44, FontStyle.Bold, TextAnchor.MiddleCenter,
+            new Vector2(0.5f, 0.5f), new Vector2(120f, 70f), QrDarkColor).raycastTarget = false;
+
+        CreateQrFinder(qrFrame, new Vector2(0.18f, 0.82f));
+        CreateQrFinder(qrFrame, new Vector2(0.82f, 0.82f));
+        CreateQrFinder(qrFrame, new Vector2(0.18f, 0.18f));
+
+        Vector2[] modules =
+        {
+            new Vector2(0.38f, 0.78f), new Vector2(0.48f, 0.78f), new Vector2(0.62f, 0.72f),
+            new Vector2(0.42f, 0.64f), new Vector2(0.56f, 0.62f), new Vector2(0.74f, 0.58f),
+            new Vector2(0.36f, 0.48f), new Vector2(0.52f, 0.46f), new Vector2(0.66f, 0.44f),
+            new Vector2(0.80f, 0.38f), new Vector2(0.42f, 0.30f), new Vector2(0.58f, 0.26f),
+            new Vector2(0.72f, 0.22f)
+        };
+
+        for (int i = 0; i < modules.Length; i++)
+        {
+            CreateQrModule(qrFrame, modules[i], new Vector2(26f, 26f));
+        }
+    }
+
+    private void CreateQrFinder(Transform parent, Vector2 anchor)
+    {
+        RectTransform outer = CreatePanel(parent, "QR Finder", anchor, new Vector2(84f, 84f), QrDarkColor);
+        CreatePanel(outer, "QR Finder Inner", new Vector2(0.5f, 0.5f), new Vector2(54f, 54f), QrLightColor);
+        CreatePanel(outer, "QR Finder Core", new Vector2(0.5f, 0.5f), new Vector2(30f, 30f), QrDarkColor);
+    }
+
+    private void CreateQrModule(Transform parent, Vector2 anchor, Vector2 size)
+    {
+        CreatePanel(parent, "QR Module", anchor, size, QrDarkColor);
     }
 
     private void StartQuiz()
     {
         currentQuestionIndex = 0;
         correctAnswers = 0;
+        superGameActive = false;
+        superGamePlayed = false;
         ShowQuestion();
     }
 
@@ -227,8 +315,8 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         answerLocked = false;
         SetActiveScreen(questionScreen);
 
-        QuestionData question = questions[currentQuestionIndex];
-        progressLabel.text = "Вопрос " + (currentQuestionIndex + 1) + " из " + questions.Length;
+        QuestionData question = GetCurrentQuestion();
+        progressLabel.text = superGameActive ? "Суперигра" : "Вопрос " + (currentQuestionIndex + 1) + " из " + questions.Length;
         questionLabel.text = question.Text;
 
         for (int i = 0; i < answerButtons.Length; i++)
@@ -247,10 +335,15 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         }
 
         answerLocked = true;
-        QuestionData question = questions[currentQuestionIndex];
+        QuestionData question = GetCurrentQuestion();
         bool isCorrect = answerIndex == question.CorrectAnswerIndex;
 
-        if (isCorrect)
+        if (superGameActive)
+        {
+            superGamePlayed = true;
+        }
+
+        if (!superGameActive && isCorrect)
         {
             correctAnswers++;
         }
@@ -271,9 +364,11 @@ public sealed class MillionaireQuizGame : MonoBehaviour
 
         feedbackTitleLabel.text = isCorrect ? "Правильно!" : "Неправильно";
         feedbackTitleLabel.color = isCorrect ? CorrectColor : WrongColor;
-        feedbackMessageLabel.text = isCorrect
-            ? "Ответ засчитан. Переходим к следующему вопросу."
-            : "Выбран неверный вариант. Правильный ответ подсвечен зеленым.";
+        feedbackMessageLabel.text = superGameActive
+            ? "Суперигра завершена. Переходим к призовому QR-коду."
+            : isCorrect
+                ? "Ответ засчитан. Переходим к следующему вопросу."
+                : "Выбран неверный вариант. Правильный ответ подсвечен зеленым.";
 
         if (feedbackRoutine != null)
         {
@@ -289,11 +384,23 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         SetActiveScreen(feedbackScreen);
         yield return new WaitForSeconds(1.6f);
 
+        if (superGameActive)
+        {
+            ShowFinalScreen();
+            yield break;
+        }
+
         currentQuestionIndex++;
 
         if (currentQuestionIndex < questions.Length)
         {
             ShowQuestion();
+            yield break;
+        }
+
+        if (correctAnswers >= 4)
+        {
+            ShowSuperGame();
             yield break;
         }
 
@@ -307,8 +414,23 @@ public sealed class MillionaireQuizGame : MonoBehaviour
 
     private void ShowFinalScreen()
     {
-        finalScoreLabel.text = "Ваш результат: " + correctAnswers + " из " + questions.Length;
+        superGameActive = false;
+        finalScoreLabel.text = "Ваш результат в основной игре: " + correctAnswers + " из " + questions.Length;
+        finalRewardLabel.text = superGamePlayed
+            ? "Поздравляем!!! В качестве приза получите ЛЮБОЙ напиток в нашем баре"
+            : "Попробуйте сыграть еще раз. В качестве поощрения за участие Вам предлагается приз в виде БЕЗАЛКОГОЛЬНОГО напитка в нашем баре. Сфотографируйте QR-код и предъявите бармену";
         SetActiveScreen(finalScreen);
+    }
+
+    private void ShowSuperGame()
+    {
+        superGameActive = true;
+        ShowQuestion();
+    }
+
+    private QuestionData GetCurrentQuestion()
+    {
+        return superGameActive ? superQuestion : questions[currentQuestionIndex];
     }
 
     private GameObject CreateScreen(Transform parent, string name)
