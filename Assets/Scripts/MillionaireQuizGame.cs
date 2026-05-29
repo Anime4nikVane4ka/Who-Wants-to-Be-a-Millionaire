@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
@@ -9,15 +10,16 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private const int QuestionsCount = 8;
     private const int AnswersCount = 4;
 
-    private static readonly Color BackgroundColor = new Color32(231, 232, 232, 255);
-    private static readonly Color PanelColor = new Color32(23, 111, 193, 255);
-    private static readonly Color ButtonColor = new Color32(23, 111, 193, 255);
-    private static readonly Color ButtonHoverColor = new Color32(23, 111, 193, 255);
+    private static readonly Color BackgroundColor = new Color32(0, 91, 168, 255);
+    private static readonly Color PanelColor = new Color32(254, 254, 254, 255);
+    private static readonly Color ButtonColor = new Color32(254, 254, 254, 255);
+    private static readonly Color ButtonHoverColor = new Color32(254, 254, 254, 255);
     private static readonly Color CorrectColor = new Color32(0, 176, 80, 255);
     private static readonly Color WrongColor = new Color32(255, 0, 0, 255);
-    private static readonly Color AccentColor = new Color32(23, 111, 193, 255);
-    private static readonly Color TextColor = new Color32(0, 0, 0, 255);
-    private static readonly Color MutedTextColor = new Color32(51, 51, 51, 255);
+    private static readonly Color AccentColor = new Color32(254, 254, 254, 255);
+    private static readonly Color TextColor = new Color32(254, 254, 254, 255);
+    private static readonly Color FrameTextColor = new Color32(0, 91, 168, 255);
+    private static readonly Color MutedTextColor = new Color32(254, 254, 254, 255);
     private static readonly Color QrLightColor = new Color32(255, 255, 255, 255);
     private static readonly Color QrDarkColor = new Color32(0, 0, 0, 255);
 
@@ -41,6 +43,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private Font boldFont;
     private Sprite logoSprite;
     private Sprite pmufLogoSprite;
+    private Sprite minuLogoSprite;
     private Sprite roundedRectSprite;
     private int currentQuestionIndex;
     private int correctAnswers;
@@ -206,8 +209,10 @@ public sealed class MillionaireQuizGame : MonoBehaviour
 
     private void CreateLogo(Transform parent)
     {
-        CreateLogoImage(parent, pmufLogoSprite, "PMUF Logo", new Vector2(0.32f, 0.78f), new Vector2(360f, 110f));
-        CreateLogoImage(parent, logoSprite, "Brand Logo", new Vector2(0.62f, 0.78f), new Vector2(600f, 250f));
+        float logo_multiplier = 1.5f;
+        CreateLogoImage(parent, pmufLogoSprite, "PMUF Logo", new Vector2(0.23f, 0.78f), new Vector2(360f * logo_multiplier, 150f * logo_multiplier));
+        CreateLogoImage(parent, logoSprite, "Brand Logo", new Vector2(0.52f, 0.78f), new Vector2(360f * logo_multiplier, 150f * logo_multiplier));
+        CreateLogoImage(parent, minuLogoSprite, "MINU Logo", new Vector2(0.79f, 0.78f), new Vector2(360f * logo_multiplier, 150f * logo_multiplier));
     }
 
     private void CreateLogoImage(Transform parent, Sprite sprite, string name, Vector2 anchor, Vector2 size)
@@ -241,7 +246,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
 
         RectTransform questionPanel = CreatePanel(parent, "Question Panel", new Vector2(0.5f, 0.68f), new Vector2(1460f, 300f), PanelColor);
         questionLabel = CreateText(questionPanel, "Question", string.Empty, 38, FontStyle.Bold, TextAnchor.MiddleCenter,
-            new Vector2(0.5f, 0.5f), new Vector2(1360f, 240f), Color.white);
+            new Vector2(0.5f, 0.5f), new Vector2(1360f, 240f), FrameTextColor);
         questionLabel.resizeTextForBestFit = true;
         questionLabel.resizeTextMinSize = 18;
         questionLabel.resizeTextMaxSize = 38;
@@ -286,10 +291,10 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         RectTransform panel = CreatePanel(parent, "Feedback Panel", new Vector2(0.5f, 0.53f), new Vector2(1120f, 470f), PanelColor);
 
         feedbackTitleLabel = CreateText(panel, "Feedback Title", string.Empty, 64, FontStyle.Bold, TextAnchor.MiddleCenter,
-            new Vector2(0.5f, 0.65f), new Vector2(900f, 100f), Color.white);
+            new Vector2(0.5f, 0.65f), new Vector2(900f, 100f), FrameTextColor);
 
         feedbackMessageLabel = CreateText(panel, "Feedback Message", string.Empty, 34, FontStyle.Normal, TextAnchor.MiddleCenter,
-            new Vector2(0.5f, 0.43f), new Vector2(920f, 110f), Color.white);
+            new Vector2(0.5f, 0.43f), new Vector2(920f, 110f), FrameTextColor);
     }
 
     private void CreateFinalScreen(Transform parent)
@@ -326,16 +331,16 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         Image dimmer = parent.gameObject.AddComponent<Image>();
         dimmer.color = new Color(0f, 0f, 0f, 0.42f);
 
-        RectTransform panel = CreatePanel(parent, "Home Confirmation Panel", new Vector2(0.5f, 0.5f), new Vector2(760f, 360f), BackgroundColor);
+        RectTransform panel = CreatePanel(parent, "Home Confirmation Panel", new Vector2(0.5f, 0.5f), new Vector2(760f, 360f), PanelColor);
 
         Text title = CreateText(panel, "Home Confirmation Title", "Вернуться на главный экран?", 38, FontStyle.Bold,
-            TextAnchor.MiddleCenter, new Vector2(0.5f, 0.66f), new Vector2(620f, 90f), AccentColor);
+            TextAnchor.MiddleCenter, new Vector2(0.5f, 0.66f), new Vector2(620f, 90f), FrameTextColor);
         title.resizeTextForBestFit = true;
         title.resizeTextMinSize = 26;
         title.resizeTextMaxSize = 38;
 
         CreateText(panel, "Home Confirmation Text", "Текущая игра будет прервана.", 28, FontStyle.Normal,
-            TextAnchor.MiddleCenter, new Vector2(0.5f, 0.48f), new Vector2(620f, 60f), TextColor);
+            TextAnchor.MiddleCenter, new Vector2(0.5f, 0.48f), new Vector2(620f, 60f), FrameTextColor);
 
         CreateButton(panel, "Confirm Home Button", "Да", new Vector2(0.32f, 0.22f), new Vector2(220f, 78f), ConfirmReturnHome);
         CreateButton(panel, "Cancel Home Button", "Нет", new Vector2(0.68f, 0.22f), new Vector2(220f, 78f), HideHomeConfirmation);
@@ -442,7 +447,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         }
 
         feedbackTitleLabel.text = isCorrect ? "Правильно!" : "Неправильно";
-        feedbackTitleLabel.color = isCorrect ? CorrectColor : WrongColor;
+        feedbackTitleLabel.color = FrameTextColor;
         feedbackMessageLabel.text = superGameActive
             ? "Суперигра завершена. Переходим к призовому QR-коду."
             : isCorrect
@@ -680,7 +685,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private Color GetReadableTextColor(Color backgroundColor)
     {
         float luminance = 0.2126f * backgroundColor.r + 0.7152f * backgroundColor.g + 0.0722f * backgroundColor.b;
-        return luminance > 0.55f ? TextColor : Color.white;
+        return luminance > 0.55f ? FrameTextColor : Color.white;
     }
 
     private void SetActiveScreen(GameObject activeScreen)
@@ -721,7 +726,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
             boldFont = regularFont;
         }
 
-        Texture2D logoTexture = Resources.Load<Texture2D>("Brand/logo_eps_rus");
+        Texture2D logoTexture = Resources.Load<Texture2D>("Brand/logo_placeholder");
         if (logoTexture != null)
         {
             logoSprite = Sprite.Create(
@@ -737,6 +742,16 @@ public sealed class MillionaireQuizGame : MonoBehaviour
             pmufLogoSprite = Sprite.Create(
                 pmufLogoTexture,
                 new Rect(0f, 0f, pmufLogoTexture.width, pmufLogoTexture.height),
+                new Vector2(0.5f, 0.5f),
+                100f);
+        }
+
+        Texture2D minuLogoTexture = Resources.Load<Texture2D>("Brand/logo_MINU");
+        if (minuLogoTexture != null)
+        {
+            minuLogoSprite = Sprite.Create(
+                minuLogoTexture,
+                new Rect(0f, 0f, minuLogoTexture.width, minuLogoTexture.height),
                 new Vector2(0.5f, 0.5f),
                 100f);
         }

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 9aeea87991f78a34d9782f2ffaf54f34
+guid: c2fd61a600effea47aad44e57bd1cdb7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4109547331297486294
-    second: fon_A4-gray_0
+      213: 251452041827915211
+    second: logo_placeholder_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: fon_A4-gray_0
+      name: logo_placeholder_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 3508
-        height: 2480
+        width: 732
+        height: 465
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a2adb5ab974f7f6c0800000000000000
-      internalID: -4109547331297486294
+      spriteID: bc5133fbc465d7300800000000000000
+      internalID: 251452041827915211
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      fon_A4-gray_0: -4109547331297486294
+      logo_placeholder_0: 251452041827915211
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
