@@ -9,15 +9,17 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private const int QuestionsCount = 8;
     private const int AnswersCount = 4;
 
-    private static readonly Color BackgroundColor = new Color(0.03f, 0.05f, 0.16f);
-    private static readonly Color PanelColor = new Color(0.08f, 0.12f, 0.31f);
-    private static readonly Color ButtonColor = new Color(0.13f, 0.2f, 0.46f);
-    private static readonly Color ButtonHoverColor = new Color(0.18f, 0.29f, 0.64f);
-    private static readonly Color CorrectColor = new Color(0.13f, 0.58f, 0.27f);
-    private static readonly Color WrongColor = new Color(0.75f, 0.16f, 0.18f);
-    private static readonly Color GoldColor = new Color(0.96f, 0.73f, 0.24f);
-    private static readonly Color QrLightColor = new Color(0.94f, 0.94f, 0.9f);
-    private static readonly Color QrDarkColor = new Color(0.02f, 0.025f, 0.04f);
+    private static readonly Color BackgroundColor = new Color32(231, 232, 232, 255);
+    private static readonly Color PanelColor = new Color32(23, 111, 193, 255);
+    private static readonly Color ButtonColor = new Color32(23, 111, 193, 255);
+    private static readonly Color ButtonHoverColor = new Color32(23, 111, 193, 255);
+    private static readonly Color CorrectColor = new Color32(0, 176, 80, 255);
+    private static readonly Color WrongColor = new Color32(255, 0, 0, 255);
+    private static readonly Color AccentColor = new Color32(23, 111, 193, 255);
+    private static readonly Color TextColor = new Color32(0, 0, 0, 255);
+    private static readonly Color MutedTextColor = new Color32(51, 51, 51, 255);
+    private static readonly Color QrLightColor = new Color32(255, 255, 255, 255);
+    private static readonly Color QrDarkColor = new Color32(0, 0, 0, 255);
 
     private readonly QuestionData[] questions = new QuestionData[QuestionsCount];
     private QuestionData superQuestion;
@@ -33,13 +35,19 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private GameObject questionScreen;
     private GameObject feedbackScreen;
     private GameObject finalScreen;
+    private GameObject homeConfirmationOverlay;
 
-    private Font uiFont;
+    private Font regularFont;
+    private Font boldFont;
+    private Sprite logoSprite;
+    private Sprite pmufLogoSprite;
+    private Sprite roundedRectSprite;
     private int currentQuestionIndex;
     private int correctAnswers;
     private bool answerLocked;
     private bool superGameActive;
     private bool superGamePlayed;
+    private bool feedbackWasInterruptedByHomeConfirmation;
     private Coroutine feedbackRoutine;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -57,7 +65,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
-        uiFont = GetBuiltinFont();
+        LoadBrandAssets();
         CreateQuestions();
         CreateEventSystem();
         CreateInterface();
@@ -161,6 +169,8 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         canvasObject.AddComponent<GraphicRaycaster>();
 
         Image background = canvasObject.AddComponent<Image>();
+        background.type = Image.Type.Simple;
+        background.preserveAspect = false;
         background.color = BackgroundColor;
         background.raycastTarget = false;
 
@@ -175,23 +185,59 @@ public sealed class MillionaireQuizGame : MonoBehaviour
 
         finalScreen = CreateScreen(canvasObject.transform, "Final Screen");
         CreateFinalScreen(finalScreen.transform);
+
+        homeConfirmationOverlay = CreateScreen(canvasObject.transform, "Home Confirmation Overlay");
+        CreateHomeConfirmationOverlay(homeConfirmationOverlay.transform);
+        homeConfirmationOverlay.SetActive(false);
     }
 
     private void CreateStartScreen(Transform parent)
     {
+        CreateLogo(parent);
+
         CreateText(parent, "Title", "Кто хочет стать миллионером?", 72, FontStyle.Bold, TextAnchor.MiddleCenter,
-            new Vector2(0.5f, 0.64f), new Vector2(1100f, 110f), GoldColor);
+            new Vector2(0.5f, 0.58f), new Vector2(1100f, 110f), AccentColor);
 
         CreateText(parent, "Invite", "Нажмите кнопку, чтобы начать участие в викторине", 34, FontStyle.Normal,
-            TextAnchor.MiddleCenter, new Vector2(0.5f, 0.51f), new Vector2(1000f, 80f), Color.white);
+            TextAnchor.MiddleCenter, new Vector2(0.5f, 0.45f), new Vector2(1000f, 80f), AccentColor);
 
-        CreateButton(parent, "Start Button", "Начать", new Vector2(0.5f, 0.36f), new Vector2(360f, 94f), StartQuiz);
+        CreateButton(parent, "Start Button", "Начать", new Vector2(0.5f, 0.3f), new Vector2(480f, 118f), StartQuiz);
+    }
+
+    private void CreateLogo(Transform parent)
+    {
+        CreateLogoImage(parent, pmufLogoSprite, "PMUF Logo", new Vector2(0.32f, 0.78f), new Vector2(360f, 110f));
+        CreateLogoImage(parent, logoSprite, "Brand Logo", new Vector2(0.62f, 0.78f), new Vector2(600f, 250f));
+    }
+
+    private void CreateLogoImage(Transform parent, Sprite sprite, string name, Vector2 anchor, Vector2 size)
+    {
+        if (sprite == null)
+        {
+            return;
+        }
+
+        GameObject logoObject = new GameObject(name);
+        logoObject.transform.SetParent(parent, false);
+
+        RectTransform rectTransform = logoObject.AddComponent<RectTransform>();
+        rectTransform.anchorMin = anchor;
+        rectTransform.anchorMax = anchor;
+        rectTransform.pivot = new Vector2(0.5f, 0.5f);
+        rectTransform.sizeDelta = size;
+
+        Image image = logoObject.AddComponent<Image>();
+        image.sprite = sprite;
+        image.preserveAspect = true;
+        image.raycastTarget = false;
     }
 
     private void CreateQuestionScreen(Transform parent)
     {
+        CreateHomeButton(parent);
+
         progressLabel = CreateText(parent, "Progress", string.Empty, 30, FontStyle.Bold, TextAnchor.MiddleCenter,
-            new Vector2(0.5f, 0.88f), new Vector2(460f, 58f), GoldColor);
+            new Vector2(0.5f, 0.88f), new Vector2(460f, 58f), AccentColor);
 
         RectTransform questionPanel = CreatePanel(parent, "Question Panel", new Vector2(0.5f, 0.68f), new Vector2(1460f, 300f), PanelColor);
         questionLabel = CreateText(questionPanel, "Question", string.Empty, 38, FontStyle.Bold, TextAnchor.MiddleCenter,
@@ -235,6 +281,8 @@ public sealed class MillionaireQuizGame : MonoBehaviour
 
     private void CreateFeedbackScreen(Transform parent)
     {
+        CreateHomeButton(parent);
+
         RectTransform panel = CreatePanel(parent, "Feedback Panel", new Vector2(0.5f, 0.53f), new Vector2(1120f, 470f), PanelColor);
 
         feedbackTitleLabel = CreateText(panel, "Feedback Title", string.Empty, 64, FontStyle.Bold, TextAnchor.MiddleCenter,
@@ -246,21 +294,51 @@ public sealed class MillionaireQuizGame : MonoBehaviour
 
     private void CreateFinalScreen(Transform parent)
     {
+        CreateHomeButton(parent);
+
         CreateText(parent, "Final Title", "Викторина завершена", 56, FontStyle.Bold, TextAnchor.MiddleCenter,
-            new Vector2(0.5f, 0.9f), new Vector2(1000f, 80f), GoldColor);
+            new Vector2(0.5f, 0.9f), new Vector2(1000f, 80f), AccentColor);
 
         CreateQrPlaceholder(parent);
 
         finalScoreLabel = CreateText(parent, "Final Score", string.Empty, 34, FontStyle.Bold, TextAnchor.MiddleCenter,
-            new Vector2(0.5f, 0.37f), new Vector2(1200f, 70f), Color.white);
+            new Vector2(0.5f, 0.37f), new Vector2(1200f, 70f), TextColor);
 
         finalRewardLabel = CreateText(parent, "Final Reward Message", string.Empty, 28, FontStyle.Normal, TextAnchor.MiddleCenter,
-            new Vector2(0.5f, 0.23f), new Vector2(1420f, 140f), Color.white);
+            new Vector2(0.5f, 0.23f), new Vector2(1420f, 140f), TextColor);
         finalRewardLabel.resizeTextForBestFit = true;
         finalRewardLabel.resizeTextMinSize = 20;
         finalRewardLabel.resizeTextMaxSize = 28;
 
         CreateButton(parent, "Restart Button", "Начать заново", new Vector2(0.5f, 0.12f), new Vector2(430f, 86f), StartQuiz);
+    }
+
+    private void CreateHomeButton(Transform parent)
+    {
+        Button button = CreateButton(parent, "Home Button", "⌂", new Vector2(0.95f, 0.92f), new Vector2(86f, 72f), ShowHomeConfirmation);
+        Text label = button.GetComponentInChildren<Text>();
+        label.fontSize = 38;
+        label.resizeTextForBestFit = false;
+    }
+
+    private void CreateHomeConfirmationOverlay(Transform parent)
+    {
+        Image dimmer = parent.gameObject.AddComponent<Image>();
+        dimmer.color = new Color(0f, 0f, 0f, 0.42f);
+
+        RectTransform panel = CreatePanel(parent, "Home Confirmation Panel", new Vector2(0.5f, 0.5f), new Vector2(760f, 360f), BackgroundColor);
+
+        Text title = CreateText(panel, "Home Confirmation Title", "Вернуться на главный экран?", 38, FontStyle.Bold,
+            TextAnchor.MiddleCenter, new Vector2(0.5f, 0.66f), new Vector2(620f, 90f), AccentColor);
+        title.resizeTextForBestFit = true;
+        title.resizeTextMinSize = 26;
+        title.resizeTextMaxSize = 38;
+
+        CreateText(panel, "Home Confirmation Text", "Текущая игра будет прервана.", 28, FontStyle.Normal,
+            TextAnchor.MiddleCenter, new Vector2(0.5f, 0.48f), new Vector2(620f, 60f), TextColor);
+
+        CreateButton(panel, "Confirm Home Button", "Да", new Vector2(0.32f, 0.22f), new Vector2(220f, 78f), ConfirmReturnHome);
+        CreateButton(panel, "Cancel Home Button", "Нет", new Vector2(0.68f, 0.22f), new Vector2(220f, 78f), HideHomeConfirmation);
     }
 
     private void CreateQrPlaceholder(Transform parent)
@@ -291,14 +369,14 @@ public sealed class MillionaireQuizGame : MonoBehaviour
 
     private void CreateQrFinder(Transform parent, Vector2 anchor)
     {
-        RectTransform outer = CreatePanel(parent, "QR Finder", anchor, new Vector2(84f, 84f), QrDarkColor);
-        CreatePanel(outer, "QR Finder Inner", new Vector2(0.5f, 0.5f), new Vector2(54f, 54f), QrLightColor);
-        CreatePanel(outer, "QR Finder Core", new Vector2(0.5f, 0.5f), new Vector2(30f, 30f), QrDarkColor);
+        RectTransform outer = CreatePanel(parent, "QR Finder", anchor, new Vector2(84f, 84f), QrDarkColor, false);
+        CreatePanel(outer, "QR Finder Inner", new Vector2(0.5f, 0.5f), new Vector2(54f, 54f), QrLightColor, false);
+        CreatePanel(outer, "QR Finder Core", new Vector2(0.5f, 0.5f), new Vector2(30f, 30f), QrDarkColor, false);
     }
 
     private void CreateQrModule(Transform parent, Vector2 anchor, Vector2 size)
     {
-        CreatePanel(parent, "QR Module", anchor, size, QrDarkColor);
+        CreatePanel(parent, "QR Module", anchor, size, QrDarkColor, false);
     }
 
     private void StartQuiz()
@@ -317,6 +395,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
 
         QuestionData question = GetCurrentQuestion();
         progressLabel.text = superGameActive ? "Суперигра" : "Вопрос " + (currentQuestionIndex + 1) + " из " + questions.Length;
+        progressLabel.fontSize = superGameActive ? 52 : 30;
         questionLabel.text = question.Text;
 
         for (int i = 0; i < answerButtons.Length; i++)
@@ -409,6 +488,52 @@ public sealed class MillionaireQuizGame : MonoBehaviour
 
     private void ShowStartScreen()
     {
+        HideHomeConfirmation();
+        SetActiveScreen(startScreen);
+    }
+
+    private void ShowHomeConfirmation()
+    {
+        feedbackWasInterruptedByHomeConfirmation = feedbackScreen.activeSelf && feedbackRoutine != null;
+
+        if (feedbackRoutine != null)
+        {
+            StopCoroutine(feedbackRoutine);
+            feedbackRoutine = null;
+        }
+
+        homeConfirmationOverlay.SetActive(true);
+    }
+
+    private void HideHomeConfirmation()
+    {
+        if (homeConfirmationOverlay == null)
+        {
+            return;
+        }
+
+        homeConfirmationOverlay.SetActive(false);
+
+        if (feedbackWasInterruptedByHomeConfirmation)
+        {
+            feedbackWasInterruptedByHomeConfirmation = false;
+            feedbackRoutine = StartCoroutine(ShowFeedbackThenContinue());
+        }
+    }
+
+    private void ConfirmReturnHome()
+    {
+        feedbackWasInterruptedByHomeConfirmation = false;
+
+        if (feedbackRoutine != null)
+        {
+            StopCoroutine(feedbackRoutine);
+            feedbackRoutine = null;
+        }
+
+        homeConfirmationOverlay.SetActive(false);
+        superGameActive = false;
+        answerLocked = false;
         SetActiveScreen(startScreen);
     }
 
@@ -416,9 +541,11 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     {
         superGameActive = false;
         finalScoreLabel.text = "Ваш результат в основной игре: " + correctAnswers + " из " + questions.Length;
+        finalScoreLabel.color = AccentColor;
         finalRewardLabel.text = superGamePlayed
             ? "Поздравляем!!! В качестве приза получите ЛЮБОЙ напиток в нашем баре"
             : "Попробуйте сыграть еще раз. В качестве поощрения за участие Вам предлагается приз в виде БЕЗАЛКОГОЛЬНОГО напитка в нашем баре. Сфотографируйте QR-код и предъявите бармену";
+        finalRewardLabel.color = AccentColor;
         SetActiveScreen(finalScreen);
     }
 
@@ -447,7 +574,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         return screen;
     }
 
-    private RectTransform CreatePanel(Transform parent, string name, Vector2 anchor, Vector2 size, Color color)
+    private RectTransform CreatePanel(Transform parent, string name, Vector2 anchor, Vector2 size, Color color, bool rounded = true)
     {
         GameObject panelObject = new GameObject(name);
         panelObject.transform.SetParent(parent, false);
@@ -459,6 +586,12 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         rectTransform.sizeDelta = size;
 
         Image image = panelObject.AddComponent<Image>();
+        if (rounded)
+        {
+            image.sprite = roundedRectSprite;
+            image.type = Image.Type.Sliced;
+        }
+
         image.color = color;
 
         return rectTransform;
@@ -476,7 +609,9 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         rectTransform.sizeDelta = size;
 
         Image image = buttonObject.AddComponent<Image>();
-        image.color = ButtonColor;
+        image.sprite = roundedRectSprite;
+        image.type = Image.Type.Sliced;
+        image.color = Color.white;
 
         Button button = buttonObject.AddComponent<Button>();
         button.targetGraphic = image;
@@ -486,6 +621,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         Text text = CreateText(rectTransform, "Label", label, 36, FontStyle.Bold, TextAnchor.MiddleCenter,
             new Vector2(0.5f, 0.5f), size, Color.white);
         text.raycastTarget = false;
+        text.color = GetReadableTextColor(ButtonColor);
 
         return button;
     }
@@ -504,9 +640,9 @@ public sealed class MillionaireQuizGame : MonoBehaviour
 
         Text text = textObject.AddComponent<Text>();
         text.text = content;
-        text.font = uiFont;
+        text.font = GetFontForStyle(style);
         text.fontSize = fontSize;
-        text.fontStyle = style;
+        text.fontStyle = GetRuntimeFontStyle(style);
         text.alignment = alignment;
         text.color = color;
         text.horizontalOverflow = HorizontalWrapMode.Wrap;
@@ -520,7 +656,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         ColorBlock colors = ColorBlock.defaultColorBlock;
         colors.normalColor = normalColor;
         colors.highlightedColor = ButtonHoverColor;
-        colors.pressedColor = GoldColor;
+        colors.pressedColor = AccentColor;
         colors.selectedColor = ButtonHoverColor;
         colors.disabledColor = normalColor;
         colors.colorMultiplier = 1f;
@@ -531,8 +667,20 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private void SetButtonColor(Button button, Color color)
     {
         Image image = button.GetComponent<Image>();
-        image.color = color;
+        image.color = Color.white;
         button.colors = CreateButtonColors(color);
+
+        Text label = button.GetComponentInChildren<Text>();
+        if (label != null)
+        {
+            label.color = GetReadableTextColor(color);
+        }
+    }
+
+    private Color GetReadableTextColor(Color backgroundColor)
+    {
+        float luminance = 0.2126f * backgroundColor.r + 0.7152f * backgroundColor.g + 0.0722f * backgroundColor.b;
+        return luminance > 0.55f ? TextColor : Color.white;
     }
 
     private void SetActiveScreen(GameObject activeScreen)
@@ -543,10 +691,113 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         finalScreen.SetActive(activeScreen == finalScreen);
     }
 
-    private Font GetBuiltinFont()
+    private void LoadBrandAssets()
     {
-        Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-        return font != null ? font : Resources.GetBuiltinResource<Font>("Arial.ttf");
+        regularFont = Resources.Load<Font>("Brand/MYRIADPRO-REGULAR");
+        boldFont = Resources.Load<Font>("Brand/MYRIADPRO-BOLD");
+
+        if (regularFont == null)
+        {
+            regularFont = Font.CreateDynamicFontFromOSFont(new[] { "Myriad Pro", "Tahoma", "Arial" }, 24);
+        }
+
+        if (boldFont == null)
+        {
+            boldFont = Font.CreateDynamicFontFromOSFont(new[] { "Myriad Pro Bold", "Myriad Pro", "Tahoma", "Arial" }, 24);
+        }
+
+        if (regularFont == null)
+        {
+            regularFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        }
+
+        if (regularFont == null)
+        {
+            regularFont = Resources.GetBuiltinResource<Font>("Arial.ttf");
+        }
+
+        if (boldFont == null)
+        {
+            boldFont = regularFont;
+        }
+
+        Texture2D logoTexture = Resources.Load<Texture2D>("Brand/logo_eps_rus");
+        if (logoTexture != null)
+        {
+            logoSprite = Sprite.Create(
+                logoTexture,
+                new Rect(0f, 0f, logoTexture.width, logoTexture.height),
+                new Vector2(0.5f, 0.5f),
+                100f);
+        }
+
+        Texture2D pmufLogoTexture = Resources.Load<Texture2D>("Brand/logo_PMUF");
+        if (pmufLogoTexture != null)
+        {
+            pmufLogoSprite = Sprite.Create(
+                pmufLogoTexture,
+                new Rect(0f, 0f, pmufLogoTexture.width, pmufLogoTexture.height),
+                new Vector2(0.5f, 0.5f),
+                100f);
+        }
+
+        roundedRectSprite = CreateRoundedRectSprite();
+    }
+
+    private Font GetFontForStyle(FontStyle style)
+    {
+        return style == FontStyle.Bold ? boldFont : regularFont;
+    }
+
+    private FontStyle GetRuntimeFontStyle(FontStyle style)
+    {
+        return style == FontStyle.Bold && boldFont == regularFont ? FontStyle.Bold : FontStyle.Normal;
+    }
+
+    private Sprite CreateRoundedRectSprite()
+    {
+        const int size = 64;
+        const int radius = 14;
+
+        Texture2D texture = new Texture2D(size, size, TextureFormat.RGBA32, false);
+        texture.name = "Rounded Rect Sprite";
+        texture.wrapMode = TextureWrapMode.Clamp;
+        texture.filterMode = FilterMode.Bilinear;
+
+        for (int y = 0; y < size; y++)
+        {
+            for (int x = 0; x < size; x++)
+            {
+                float alpha = GetRoundedRectAlpha(x, y, size, radius);
+                texture.SetPixel(x, y, new Color(1f, 1f, 1f, alpha));
+            }
+        }
+
+        texture.Apply();
+
+        return Sprite.Create(
+            texture,
+            new Rect(0f, 0f, size, size),
+            new Vector2(0.5f, 0.5f),
+            100f,
+            0,
+            SpriteMeshType.FullRect,
+            new Vector4(radius, radius, radius, radius));
+    }
+
+    private float GetRoundedRectAlpha(int x, int y, int size, int radius)
+    {
+        float px = x + 0.5f;
+        float py = y + 0.5f;
+        float minX = radius;
+        float maxX = size - radius;
+        float minY = radius;
+        float maxY = size - radius;
+        float cx = Mathf.Clamp(px, minX, maxX);
+        float cy = Mathf.Clamp(py, minY, maxY);
+        float distance = Vector2.Distance(new Vector2(px, py), new Vector2(cx, cy));
+
+        return Mathf.Clamp01(radius + 0.5f - distance);
     }
 
     private sealed class QuestionData
