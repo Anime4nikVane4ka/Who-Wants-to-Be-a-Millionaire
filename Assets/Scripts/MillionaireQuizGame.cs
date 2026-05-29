@@ -45,6 +45,10 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private Sprite pmufLogoSprite;
     private Sprite minuLogoSprite;
     private Sprite roundedRectSprite;
+    private RectTransform[] waveLayers;
+    private float[] waveSpeeds;
+    private float[] waveBaseOffsets;
+    private float waveAnimationTime;
     private int currentQuestionIndex;
     private int correctAnswers;
     private bool answerLocked;
@@ -177,6 +181,8 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         background.color = BackgroundColor;
         background.raycastTarget = false;
 
+        CreateAnimatedBackground(canvasObject.transform);
+
         startScreen = CreateScreen(canvasObject.transform, "Start Screen");
         CreateStartScreen(startScreen.transform);
 
@@ -205,6 +211,63 @@ public sealed class MillionaireQuizGame : MonoBehaviour
             TextAnchor.MiddleCenter, new Vector2(0.5f, 0.45f), new Vector2(1000f, 80f), AccentColor);
 
         CreateButton(parent, "Start Button", "Начать", new Vector2(0.5f, 0.3f), new Vector2(480f, 118f), StartQuiz);
+    }
+
+    private void Update()
+    {
+        AnimateBackgroundWaves();
+    }
+
+    private void CreateAnimatedBackground(Transform parent)
+    {
+        waveLayers = new RectTransform[2];
+        waveSpeeds = new[] { 7f, -5f };
+        waveBaseOffsets = new float[waveLayers.Length];
+
+        Sprite waveSprite = CreateWaveSprite();
+
+        for (int i = 0; i < waveLayers.Length; i++)
+        {
+            GameObject waveObject = new GameObject("Background Wave " + (i + 1));
+            waveObject.transform.SetParent(parent, false);
+
+            RectTransform rectTransform = waveObject.AddComponent<RectTransform>();
+            rectTransform.anchorMin = new Vector2(0f, 0f);
+            rectTransform.anchorMax = new Vector2(1f, 1f);
+            rectTransform.offsetMin = new Vector2(-260f, -120f + i * 140f);
+            rectTransform.offsetMax = new Vector2(260f, 120f + i * 140f);
+
+            Image image = waveObject.AddComponent<Image>();
+            image.sprite = waveSprite;
+            image.type = Image.Type.Tiled;
+            image.color = new Color(1f, 1f, 1f, 0.055f + i * 0.025f);
+            image.raycastTarget = false;
+
+            waveBaseOffsets[i] = i * 180f;
+            waveLayers[i] = rectTransform;
+        }
+    }
+
+    private void AnimateBackgroundWaves()
+    {
+        if (waveLayers == null)
+        {
+            return;
+        }
+
+        waveAnimationTime += Time.deltaTime;
+
+        for (int i = 0; i < waveLayers.Length; i++)
+        {
+            if (waveLayers[i] == null)
+            {
+                continue;
+            }
+
+            Vector2 position = waveLayers[i].anchoredPosition;
+            position.x = Mathf.Sin(waveAnimationTime * 0.12f * waveSpeeds[i] + waveBaseOffsets[i]) * 120f;
+            waveLayers[i].anchoredPosition = position;
+        }
     }
 
     private void CreateLogo(Transform parent)
@@ -726,7 +789,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
             boldFont = regularFont;
         }
 
-        Texture2D logoTexture = Resources.Load<Texture2D>("Brand/logo_placeholder");
+        Texture2D logoTexture = Resources.Load<Texture2D>("Brand/logo_machines");
         if (logoTexture != null)
         {
             logoSprite = Sprite.Create(
@@ -798,6 +861,39 @@ public sealed class MillionaireQuizGame : MonoBehaviour
             0,
             SpriteMeshType.FullRect,
             new Vector4(radius, radius, radius, radius));
+    }
+
+    private Sprite CreateWaveSprite()
+    {
+        const int width = 512;
+        const int height = 256;
+
+        Texture2D texture = new Texture2D(width, height, TextureFormat.RGBA32, false);
+        texture.name = "Background Wave Sprite";
+        texture.wrapMode = TextureWrapMode.Repeat;
+        texture.filterMode = FilterMode.Bilinear;
+
+        for (int y = 0; y < height; y++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                float normalizedX = x / (float)width;
+                float center = height * (0.5f + 0.12f * Mathf.Sin(normalizedX * Mathf.PI * 2f));
+                float distance = Mathf.Abs(y - center);
+                float alpha = Mathf.Clamp01(1f - distance / 22f);
+                alpha *= 0.55f;
+
+                texture.SetPixel(x, y, new Color(1f, 1f, 1f, alpha));
+            }
+        }
+
+        texture.Apply();
+
+        return Sprite.Create(
+            texture,
+            new Rect(0f, 0f, width, height),
+            new Vector2(0.5f, 0.5f),
+            100f);
     }
 
     private float GetRoundedRectAlpha(int x, int y, int size, int radius)
