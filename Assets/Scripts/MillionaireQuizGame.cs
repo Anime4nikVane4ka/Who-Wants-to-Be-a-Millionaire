@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
@@ -45,6 +44,9 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private Sprite pmufLogoSprite;
     private Sprite minuLogoSprite;
     private Sprite roundedRectSprite;
+    private Sprite millionaireQuestionSprite;
+    private Sprite millionaireAnswerSprite;
+    private Sprite millionaireNodeSprite;
     private RectTransform[] waveLayers;
     private float[] waveSpeeds;
     private float[] waveBaseOffsets;
@@ -127,7 +129,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         {
             Text = "В договоре поставки отсутствует соглашение сторон о неустойке, но истец требует ее взыскать. В этом случае третейский суд должен:",
             CorrectAnswerIndex = 1,
-            Answers = new[] { "(А) Отказать во взыскании", "(Б) Взыскать неустойку в размере ключевой ставки ЦБ РФ", "(В) Взыскать неустойку в двойном размере ключевой ставки ЦБ РФ", "(Г) Третейский суд никому ничего не должен. Он ведь третейский суд." }
+            Answers = new[] { "(А) Отказать во взыскании", "(Б) Взыскать неустойку в размере ключевой ставки ЦБ РФ", "(В) Взыскать неустойку в двойном размере\nключевой ставки ЦБ РФ", "(Г) Третейский суд никому ничего не должен.\nОн ведь третейский суд." }
         };
 
         questions[7] = new QuestionData
@@ -307,11 +309,14 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         progressLabel = CreateText(parent, "Progress", string.Empty, 30, FontStyle.Bold, TextAnchor.MiddleCenter,
             new Vector2(0.5f, 0.88f), new Vector2(460f, 58f), AccentColor);
 
-        RectTransform questionPanel = CreatePanel(parent, "Question Panel", new Vector2(0.5f, 0.68f), new Vector2(1460f, 300f), PanelColor);
+        CreateMillionaireLine(parent, "Question Connector Line", new Vector2(0.5f, 0.72f), new Vector2(1920f, 5f));
+        CreateMillionaireLine(parent, "Answer Connector Line 1", new Vector2(0.5f, 0.405f), new Vector2(1920f, 5f));
+        CreateMillionaireLine(parent, "Answer Connector Line 2", new Vector2(0.5f, 0.27f), new Vector2(1920f, 5f));
+        RectTransform questionPanel = CreateMillionairePanel(parent, "Question Panel", new Vector2(0.5f, 0.72f), new Vector2(1640f, 270f), millionaireQuestionSprite);
         questionLabel = CreateText(questionPanel, "Question", string.Empty, 38, FontStyle.Bold, TextAnchor.MiddleCenter,
-            new Vector2(0.5f, 0.5f), new Vector2(1360f, 240f), FrameTextColor);
+            new Vector2(0.5f, 0.5f), new Vector2(1460f, 214f), FrameTextColor);
         questionLabel.resizeTextForBestFit = true;
-        questionLabel.resizeTextMinSize = 18;
+        questionLabel.resizeTextMinSize = 12;
         questionLabel.resizeTextMaxSize = 38;
 
         answerButtons = new Button[AnswersCount];
@@ -319,16 +324,16 @@ public sealed class MillionaireQuizGame : MonoBehaviour
 
         Vector2[] positions =
         {
-            new Vector2(0.29f, 0.40f),
-            new Vector2(0.71f, 0.40f),
-            new Vector2(0.29f, 0.22f),
-            new Vector2(0.71f, 0.22f)
+            new Vector2(0.29f, 0.405f),
+            new Vector2(0.71f, 0.405f),
+            new Vector2(0.29f, 0.27f),
+            new Vector2(0.71f, 0.27f)
         };
 
         for (int i = 0; i < AnswersCount; i++)
         {
             int answerIndex = i;
-            Button button = CreateButton(parent, "Answer " + (i + 1), string.Empty, positions[i], new Vector2(760f, 118f),
+            Button button = CreateMillionaireAnswerButton(parent, "Answer " + (i + 1), positions[i], new Vector2(800f, 92f),
                 () => SelectAnswer(answerIndex));
             Text label = button.GetComponentInChildren<Text>();
             label.alignment = TextAnchor.MiddleCenter;
@@ -358,6 +363,90 @@ public sealed class MillionaireQuizGame : MonoBehaviour
 
         feedbackMessageLabel = CreateText(panel, "Feedback Message", string.Empty, 34, FontStyle.Normal, TextAnchor.MiddleCenter,
             new Vector2(0.5f, 0.43f), new Vector2(920f, 110f), FrameTextColor);
+    }
+
+    private RectTransform CreateMillionairePanel(Transform parent, string name, Vector2 anchor, Vector2 size, Sprite sprite)
+    {
+        GameObject panelObject = new GameObject(name);
+        panelObject.transform.SetParent(parent, false);
+
+        RectTransform rectTransform = panelObject.AddComponent<RectTransform>();
+        rectTransform.anchorMin = anchor;
+        rectTransform.anchorMax = anchor;
+        rectTransform.pivot = new Vector2(0.5f, 0.5f);
+        rectTransform.sizeDelta = size;
+
+        Image image = panelObject.AddComponent<Image>();
+        image.sprite = sprite;
+        image.type = Image.Type.Simple;
+        image.color = PanelColor;
+        image.raycastTarget = false;
+
+        return rectTransform;
+    }
+
+    private Button CreateMillionaireAnswerButton(Transform parent, string name, Vector2 anchor, Vector2 size, UnityEngine.Events.UnityAction onClick)
+    {
+        GameObject buttonObject = new GameObject(name);
+        buttonObject.transform.SetParent(parent, false);
+
+        RectTransform rectTransform = buttonObject.AddComponent<RectTransform>();
+        rectTransform.anchorMin = anchor;
+        rectTransform.anchorMax = anchor;
+        rectTransform.pivot = new Vector2(0.5f, 0.5f);
+        rectTransform.sizeDelta = size;
+
+        Image image = buttonObject.AddComponent<Image>();
+        image.sprite = millionaireAnswerSprite;
+        image.type = Image.Type.Simple;
+        image.color = Color.white;
+
+        Button button = buttonObject.AddComponent<Button>();
+        button.targetGraphic = image;
+        button.onClick.AddListener(onClick);
+        button.colors = CreateButtonColors(ButtonColor);
+
+        Text text = CreateText(rectTransform, "Label", string.Empty, 28, FontStyle.Bold, TextAnchor.MiddleCenter,
+            new Vector2(0.5f, 0.5f), new Vector2(size.x - 72f, size.y - 18f), FrameTextColor);
+        text.raycastTarget = false;
+
+        return button;
+    }
+
+    private void CreateMillionaireLine(Transform parent, string name, Vector2 anchor, Vector2 size)
+    {
+        GameObject lineObject = new GameObject(name);
+        lineObject.transform.SetParent(parent, false);
+
+        RectTransform rectTransform = lineObject.AddComponent<RectTransform>();
+        rectTransform.anchorMin = anchor;
+        rectTransform.anchorMax = anchor;
+        rectTransform.pivot = new Vector2(0.5f, 0.5f);
+        rectTransform.sizeDelta = size;
+
+        Image image = lineObject.AddComponent<Image>();
+        image.sprite = roundedRectSprite;
+        image.type = Image.Type.Sliced;
+        image.color = PanelColor;
+        image.raycastTarget = false;
+    }
+
+    private void CreateMillionaireNode(Transform parent, string name, Vector2 anchor, Vector2 size)
+    {
+        GameObject nodeObject = new GameObject(name);
+        nodeObject.transform.SetParent(parent, false);
+
+        RectTransform rectTransform = nodeObject.AddComponent<RectTransform>();
+        rectTransform.anchorMin = anchor;
+        rectTransform.anchorMax = anchor;
+        rectTransform.pivot = new Vector2(0.5f, 0.5f);
+        rectTransform.sizeDelta = size;
+
+        Image image = nodeObject.AddComponent<Image>();
+        image.sprite = millionaireNodeSprite;
+        image.type = Image.Type.Simple;
+        image.color = PanelColor;
+        image.raycastTarget = false;
     }
 
     private void CreateFinalScreen(Transform parent)
@@ -820,6 +909,40 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         }
 
         roundedRectSprite = CreateRoundedRectSprite();
+        millionaireQuestionSprite = CreateMillionaireShapeSprite(
+            512,
+            96,
+            new[]
+            {
+                new Vector2(44f, 4f),
+                new Vector2(468f, 4f),
+                new Vector2(508f, 48f),
+                new Vector2(468f, 92f),
+                new Vector2(44f, 92f),
+                new Vector2(4f, 48f)
+            });
+        millionaireAnswerSprite = CreateMillionaireShapeSprite(
+            512,
+            96,
+            new[]
+            {
+                new Vector2(34f, 4f),
+                new Vector2(478f, 4f),
+                new Vector2(508f, 48f),
+                new Vector2(478f, 92f),
+                new Vector2(34f, 92f),
+                new Vector2(4f, 48f)
+            });
+        millionaireNodeSprite = CreateMillionaireShapeSprite(
+            128,
+            128,
+            new[]
+            {
+                new Vector2(64f, 4f),
+                new Vector2(124f, 64f),
+                new Vector2(64f, 124f),
+                new Vector2(4f, 64f)
+            });
     }
 
     private Font GetFontForStyle(FontStyle style)
@@ -894,6 +1017,106 @@ public sealed class MillionaireQuizGame : MonoBehaviour
             new Rect(0f, 0f, width, height),
             new Vector2(0.5f, 0.5f),
             100f);
+    }
+
+    private Sprite CreateMillionaireShapeSprite(int width, int height, Vector2[] points)
+    {
+        const int scale = 4;
+        const float edgeSoftness = 3f;
+
+        int textureWidth = width * scale;
+        int textureHeight = height * scale;
+        Vector2[] scaledPoints = new Vector2[points.Length];
+
+        for (int i = 0; i < points.Length; i++)
+        {
+            scaledPoints[i] = points[i] * scale;
+        }
+
+        Texture2D texture = new Texture2D(textureWidth, textureHeight, TextureFormat.RGBA32, false);
+        texture.name = "Millionaire Shape Sprite";
+        texture.wrapMode = TextureWrapMode.Clamp;
+        texture.filterMode = FilterMode.Bilinear;
+
+        for (int y = 0; y < textureHeight; y++)
+        {
+            for (int x = 0; x < textureWidth; x++)
+            {
+                Vector2 point = new Vector2(x + 0.5f, y + 0.5f);
+                bool inside = IsPointInsidePolygon(point, scaledPoints);
+                float distanceToEdge = GetDistanceToPolygonEdge(point, scaledPoints);
+                float alpha = inside ? 1f : Mathf.Clamp01(1f - distanceToEdge / edgeSoftness);
+                texture.SetPixel(x, y, new Color(1f, 1f, 1f, alpha));
+            }
+        }
+
+        texture.Apply();
+
+        return Sprite.Create(
+            texture,
+            new Rect(0f, 0f, textureWidth, textureHeight),
+            new Vector2(0.5f, 0.5f),
+            100f * scale);
+    }
+
+    private bool IsPointInsidePolygon(Vector2 point, Vector2[] polygon)
+    {
+        bool inside = false;
+        int previousIndex = polygon.Length - 1;
+
+        for (int currentIndex = 0; currentIndex < polygon.Length; currentIndex++)
+        {
+            Vector2 current = polygon[currentIndex];
+            Vector2 previous = polygon[previousIndex];
+
+            bool intersects = (current.y > point.y) != (previous.y > point.y)
+                && point.x < (previous.x - current.x) * (point.y - current.y) / (previous.y - current.y) + current.x;
+
+            if (intersects)
+            {
+                inside = !inside;
+            }
+
+            previousIndex = currentIndex;
+        }
+
+        return inside;
+    }
+
+    private float GetDistanceToPolygonEdge(Vector2 point, Vector2[] polygon)
+    {
+        float closestDistance = float.PositiveInfinity;
+        int previousIndex = polygon.Length - 1;
+
+        for (int currentIndex = 0; currentIndex < polygon.Length; currentIndex++)
+        {
+            float distance = GetDistanceToSegment(point, polygon[previousIndex], polygon[currentIndex]);
+
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+            }
+
+            previousIndex = currentIndex;
+        }
+
+        return closestDistance;
+    }
+
+    private float GetDistanceToSegment(Vector2 point, Vector2 start, Vector2 end)
+    {
+        Vector2 segment = end - start;
+        float segmentLengthSquared = segment.sqrMagnitude;
+
+        if (segmentLengthSquared <= Mathf.Epsilon)
+        {
+            return Vector2.Distance(point, start);
+        }
+
+        float t = Mathf.Clamp01(Vector2.Dot(point - start, segment) / segmentLengthSquared);
+        Vector2 projection = start + segment * t;
+
+        return Vector2.Distance(point, projection);
     }
 
     private float GetRoundedRectAlpha(int x, int y, int size, int radius)
