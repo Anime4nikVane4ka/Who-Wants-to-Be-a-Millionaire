@@ -43,6 +43,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private Sprite logoSprite;
     private Sprite pmufLogoSprite;
     private Sprite minuLogoSprite;
+    private Sprite arbitrLogoSprite;
     private Sprite roundedRectSprite;
     private Sprite millionaireQuestionSprite;
     private Sprite millionaireAnswerSprite;
@@ -206,13 +207,9 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     {
         CreateLogo(parent);
 
-        CreateText(parent, "Title", "Кто хочет стать миллионером?", 72, FontStyle.Bold, TextAnchor.MiddleCenter,
-            new Vector2(0.5f, 0.58f), new Vector2(1100f, 110f), AccentColor);
+        CreateLogoImage(parent, arbitrLogoSprite, "Arbitr Logo", new Vector2(0.5f, 0.47f), new Vector2(1180f * 2f, 270f * 2f));
 
-        CreateText(parent, "Invite", "Нажмите кнопку, чтобы начать участие в викторине", 34, FontStyle.Normal,
-            TextAnchor.MiddleCenter, new Vector2(0.5f, 0.45f), new Vector2(1000f, 80f), AccentColor);
-
-        CreateButton(parent, "Start Button", "Начать", new Vector2(0.5f, 0.3f), new Vector2(480f, 118f), StartQuiz);
+        CreateButton(parent, "Start Button", "Начать", new Vector2(0.5f, 0.12f), new Vector2(480f, 118f), StartQuiz);
     }
 
     private void Update()
@@ -275,9 +272,9 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private void CreateLogo(Transform parent)
     {
         float logo_multiplier = 1.5f;
-        CreateLogoImage(parent, pmufLogoSprite, "PMUF Logo", new Vector2(0.23f, 0.78f), new Vector2(360f * logo_multiplier, 150f * logo_multiplier));
-        CreateLogoImage(parent, logoSprite, "Brand Logo", new Vector2(0.52f, 0.78f), new Vector2(360f * logo_multiplier, 150f * logo_multiplier));
-        CreateLogoImage(parent, minuLogoSprite, "MINU Logo", new Vector2(0.79f, 0.78f), new Vector2(360f * logo_multiplier, 150f * logo_multiplier));
+        CreateLogoImage(parent, pmufLogoSprite, "PMUF Logo", new Vector2(0.23f, 0.85f), new Vector2(360f * logo_multiplier, 150f * logo_multiplier));
+        CreateLogoImage(parent, logoSprite, "Brand Logo", new Vector2(0.52f, 0.85f), new Vector2(360f * logo_multiplier, 150f * logo_multiplier));
+        CreateLogoImage(parent, minuLogoSprite, "MINU Logo", new Vector2(0.79f, 0.85f), new Vector2(360f * logo_multiplier, 150f * logo_multiplier));
     }
 
     private void CreateLogoImage(Transform parent, Sprite sprite, string name, Vector2 anchor, Vector2 size)
@@ -904,6 +901,16 @@ public sealed class MillionaireQuizGame : MonoBehaviour
             minuLogoSprite = Sprite.Create(
                 minuLogoTexture,
                 new Rect(0f, 0f, minuLogoTexture.width, minuLogoTexture.height),
+                new Vector2(0.5f, 0.5f),
+                100f);
+        }
+
+        Texture2D arbitrLogoTexture = Resources.Load<Texture2D>("Brand/arbitr_logo");
+        if (arbitrLogoTexture != null)
+        {
+            arbitrLogoSprite = Sprite.Create(
+                arbitrLogoTexture,
+                new Rect(0f, 0f, arbitrLogoTexture.width, arbitrLogoTexture.height),
                 new Vector2(0.5f, 0.5f),
                 100f);
         }
