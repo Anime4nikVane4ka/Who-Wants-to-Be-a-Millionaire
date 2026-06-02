@@ -3,11 +3,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public sealed class MillionaireQuizGame : MonoBehaviour
 {
     private const int QuestionsCount = 8;
     private const int AnswersCount = 4;
+    private const bool StartOnFinalScreenForTesting = false;
 
     private static readonly Color BackgroundColor = new Color32(0, 91, 168, 255);
     private static readonly Color PanelColor = new Color32(254, 254, 254, 255);
@@ -48,10 +50,8 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private Sprite millionaireQuestionSprite;
     private Sprite millionaireAnswerSprite;
     private Sprite millionaireNodeSprite;
-    private RectTransform[] waveLayers;
-    private float[] waveSpeeds;
-    private float[] waveBaseOffsets;
-    private float waveAnimationTime;
+    private VideoPlayer backgroundVideoPlayer;
+    private RenderTexture backgroundVideoTexture;
     private int currentQuestionIndex;
     private int correctAnswers;
     private bool answerLocked;
@@ -79,7 +79,29 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         CreateQuestions();
         CreateEventSystem();
         CreateInterface();
-        ShowStartScreen();
+
+        if (StartOnFinalScreenForTesting)
+        {
+            ShowFinalScreen();
+        }
+        else
+        {
+            ShowStartScreen();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (backgroundVideoPlayer != null)
+        {
+            backgroundVideoPlayer.loopPointReached -= RestartBackgroundVideo;
+        }
+
+        if (backgroundVideoTexture != null)
+        {
+            backgroundVideoTexture.Release();
+            Destroy(backgroundVideoTexture);
+        }
     }
 
     private void CreateQuestions()
@@ -184,7 +206,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         background.color = BackgroundColor;
         background.raycastTarget = false;
 
-        CreateAnimatedBackground(canvasObject.transform);
+        CreateBackgroundVideo(canvasObject.transform);
 
         startScreen = CreateScreen(canvasObject.transform, "Start Screen");
         CreateStartScreen(startScreen.transform);
@@ -209,64 +231,57 @@ public sealed class MillionaireQuizGame : MonoBehaviour
 
         CreateLogoImage(parent, arbitrLogoSprite, "Arbitr Logo", new Vector2(0.5f, 0.47f), new Vector2(1180f * 2f, 270f * 2f));
 
-        CreateButton(parent, "Start Button", "Начать", new Vector2(0.5f, 0.12f), new Vector2(480f, 118f), StartQuiz);
+        Button startButton = CreateMillionaireAnswerButton(parent, "Start Button", new Vector2(0.5f, 0.12f), new Vector2(620f, 118f), StartQuiz);
+        Text startButtonLabel = startButton.GetComponentInChildren<Text>();
+        startButtonLabel.text = "Начать";
+        startButtonLabel.fontSize = 46;
     }
 
-    private void Update()
+    private void CreateBackgroundVideo(Transform parent)
     {
-        AnimateBackgroundWaves();
-    }
+        VideoClip backgroundVideoClip = Resources.Load<VideoClip>("Video/flag_blue_loop_seamless_forward_50fps");
 
-    private void CreateAnimatedBackground(Transform parent)
-    {
-        waveLayers = new RectTransform[2];
-        waveSpeeds = new[] { 7f, -5f };
-        waveBaseOffsets = new float[waveLayers.Length];
-
-        Sprite waveSprite = CreateWaveSprite();
-
-        for (int i = 0; i < waveLayers.Length; i++)
+        if (backgroundVideoClip == null)
         {
-            GameObject waveObject = new GameObject("Background Wave " + (i + 1));
-            waveObject.transform.SetParent(parent, false);
-
-            RectTransform rectTransform = waveObject.AddComponent<RectTransform>();
-            rectTransform.anchorMin = new Vector2(0f, 0f);
-            rectTransform.anchorMax = new Vector2(1f, 1f);
-            rectTransform.offsetMin = new Vector2(-260f, -120f + i * 140f);
-            rectTransform.offsetMax = new Vector2(260f, 120f + i * 140f);
-
-            Image image = waveObject.AddComponent<Image>();
-            image.sprite = waveSprite;
-            image.type = Image.Type.Tiled;
-            image.color = new Color(1f, 1f, 1f, 0.055f + i * 0.025f);
-            image.raycastTarget = false;
-
-            waveBaseOffsets[i] = i * 180f;
-            waveLayers[i] = rectTransform;
-        }
-    }
-
-    private void AnimateBackgroundWaves()
-    {
-        if (waveLayers == null)
-        {
+            Debug.LogWarning("Background video clip was not found in Resources/Video.");
             return;
         }
 
-        waveAnimationTime += Time.deltaTime;
+        GameObject videoObject = new GameObject("Background Video");
+        videoObject.transform.SetParent(parent, false);
 
-        for (int i = 0; i < waveLayers.Length; i++)
-        {
-            if (waveLayers[i] == null)
-            {
-                continue;
-            }
+        RectTransform rectTransform = videoObject.AddComponent<RectTransform>();
+        rectTransform.anchorMin = Vector2.zero;
+        rectTransform.anchorMax = Vector2.one;
+        rectTransform.offsetMin = Vector2.zero;
+        rectTransform.offsetMax = Vector2.zero;
 
-            Vector2 position = waveLayers[i].anchoredPosition;
-            position.x = Mathf.Sin(waveAnimationTime * 0.12f * waveSpeeds[i] + waveBaseOffsets[i]) * 120f;
-            waveLayers[i].anchoredPosition = position;
-        }
+        backgroundVideoTexture = new RenderTexture(1920, 1080, 0);
+        backgroundVideoTexture.name = "Background Video Render Texture";
+        backgroundVideoTexture.Create();
+
+        RawImage image = videoObject.AddComponent<RawImage>();
+        image.texture = backgroundVideoTexture;
+        image.raycastTarget = false;
+
+        backgroundVideoPlayer = videoObject.AddComponent<VideoPlayer>();
+        backgroundVideoPlayer.playOnAwake = false;
+        backgroundVideoPlayer.isLooping = true;
+        backgroundVideoPlayer.renderMode = VideoRenderMode.RenderTexture;
+        backgroundVideoPlayer.targetTexture = backgroundVideoTexture;
+        backgroundVideoPlayer.aspectRatio = VideoAspectRatio.FitOutside;
+        backgroundVideoPlayer.audioOutputMode = VideoAudioOutputMode.None;
+        backgroundVideoPlayer.playbackSpeed = 1f;
+        backgroundVideoPlayer.skipOnDrop = true;
+        backgroundVideoPlayer.clip = backgroundVideoClip;
+        backgroundVideoPlayer.loopPointReached += RestartBackgroundVideo;
+        backgroundVideoPlayer.Play();
+    }
+
+    private void RestartBackgroundVideo(VideoPlayer player)
+    {
+        player.frame = 0;
+        player.Play();
     }
 
     private void CreateLogo(Transform parent)
@@ -303,13 +318,13 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     {
         CreateHomeButton(parent);
 
-        progressLabel = CreateText(parent, "Progress", string.Empty, 30, FontStyle.Bold, TextAnchor.MiddleCenter,
-            new Vector2(0.5f, 0.88f), new Vector2(460f, 58f), AccentColor);
+        progressLabel = CreateText(parent, "Progress", string.Empty, 38, FontStyle.Bold, TextAnchor.MiddleCenter,
+            new Vector2(0.5f, 0.82f), new Vector2(460f, 58f), AccentColor);
 
-        CreateMillionaireLine(parent, "Question Connector Line", new Vector2(0.5f, 0.72f), new Vector2(1920f, 5f));
+        CreateMillionaireLine(parent, "Question Connector Line", new Vector2(0.5f, 0.62f), new Vector2(1920f, 5f));
         CreateMillionaireLine(parent, "Answer Connector Line 1", new Vector2(0.5f, 0.405f), new Vector2(1920f, 5f));
         CreateMillionaireLine(parent, "Answer Connector Line 2", new Vector2(0.5f, 0.27f), new Vector2(1920f, 5f));
-        RectTransform questionPanel = CreateMillionairePanel(parent, "Question Panel", new Vector2(0.5f, 0.72f), new Vector2(1640f, 270f), millionaireQuestionSprite);
+        RectTransform questionPanel = CreateMillionairePanel(parent, "Question Panel", new Vector2(0.5f, 0.62f), new Vector2(1640f, 270f), millionaireQuestionSprite);
         questionLabel = CreateText(questionPanel, "Question", string.Empty, 38, FontStyle.Bold, TextAnchor.MiddleCenter,
             new Vector2(0.5f, 0.5f), new Vector2(1460f, 214f), FrameTextColor);
         questionLabel.resizeTextForBestFit = true;
@@ -450,21 +465,24 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     {
         CreateHomeButton(parent);
 
-        CreateText(parent, "Final Title", "Викторина завершена", 56, FontStyle.Bold, TextAnchor.MiddleCenter,
-            new Vector2(0.5f, 0.9f), new Vector2(1000f, 80f), AccentColor);
+        CreateText(parent, "Final Title", "Викторина завершена", 76, FontStyle.Bold, TextAnchor.MiddleCenter,
+            new Vector2(0.5f, 0.9f), new Vector2(1300f, 110f), AccentColor);
 
         CreateQrPlaceholder(parent);
 
-        finalScoreLabel = CreateText(parent, "Final Score", string.Empty, 34, FontStyle.Bold, TextAnchor.MiddleCenter,
-            new Vector2(0.5f, 0.37f), new Vector2(1200f, 70f), TextColor);
+        finalScoreLabel = CreateText(parent, "Final Score", string.Empty, 42, FontStyle.Bold, TextAnchor.MiddleCenter,
+            new Vector2(0.5f, 0.39f), new Vector2(1400f, 86f), TextColor);
 
-        finalRewardLabel = CreateText(parent, "Final Reward Message", string.Empty, 28, FontStyle.Normal, TextAnchor.MiddleCenter,
-            new Vector2(0.5f, 0.23f), new Vector2(1420f, 140f), TextColor);
+        finalRewardLabel = CreateText(parent, "Final Reward Message", string.Empty, 42, FontStyle.Bold, TextAnchor.MiddleCenter,
+            new Vector2(0.5f, 0.27f), new Vector2(1580f, 210f), TextColor);
         finalRewardLabel.resizeTextForBestFit = true;
-        finalRewardLabel.resizeTextMinSize = 20;
-        finalRewardLabel.resizeTextMaxSize = 28;
+        finalRewardLabel.resizeTextMinSize = 28;
+        finalRewardLabel.resizeTextMaxSize = 42;
 
-        CreateButton(parent, "Restart Button", "Начать заново", new Vector2(0.5f, 0.12f), new Vector2(430f, 86f), StartQuiz);
+        Button restartButton = CreateMillionaireAnswerButton(parent, "Restart Button", new Vector2(0.5f, 0.12f), new Vector2(620f, 104f), StartQuiz);
+        Text restartButtonLabel = restartButton.GetComponentInChildren<Text>();
+        restartButtonLabel.text = "Начать заново";
+        restartButtonLabel.fontSize = 38;
     }
 
     private void CreateHomeButton(Transform parent)
@@ -549,7 +567,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
 
         QuestionData question = GetCurrentQuestion();
         progressLabel.text = superGameActive ? "Суперигра" : "Вопрос " + (currentQuestionIndex + 1) + " из " + questions.Length;
-        progressLabel.fontSize = superGameActive ? 52 : 30;
+        progressLabel.fontSize = superGameActive ? 52 : 38;
         questionLabel.text = question.Text;
 
         for (int i = 0; i < answerButtons.Length; i++)
@@ -696,9 +714,10 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         superGameActive = false;
         finalScoreLabel.text = "Ваш результат в основной игре: " + correctAnswers + " из " + questions.Length;
         finalScoreLabel.color = AccentColor;
+        superGamePlayed = true;
         finalRewardLabel.text = superGamePlayed
-            ? "Поздравляем!!! В качестве приза получите ЛЮБОЙ напиток в нашем баре"
-            : "Попробуйте сыграть еще раз. В качестве поощрения за участие Вам предлагается приз в виде БЕЗАЛКОГОЛЬНОГО напитка в нашем баре. Сфотографируйте QR-код и предъявите бармену";
+            ? "Поздравляем!!! В качестве приза получите ЛЮБОЙ напиток в нашем баре. Сфотографируйте QR-код и предъявите бармену."
+            : "Попробуйте сыграть еще раз. В качестве поощрения за участие Вам предлагается приз в виде БЕЗАЛКОГОЛЬНОГО напитка в нашем баре. Сфотографируйте QR-код и предъявите бармену.";
         finalRewardLabel.color = AccentColor;
         SetActiveScreen(finalScreen);
     }
@@ -991,39 +1010,6 @@ public sealed class MillionaireQuizGame : MonoBehaviour
             0,
             SpriteMeshType.FullRect,
             new Vector4(radius, radius, radius, radius));
-    }
-
-    private Sprite CreateWaveSprite()
-    {
-        const int width = 512;
-        const int height = 256;
-
-        Texture2D texture = new Texture2D(width, height, TextureFormat.RGBA32, false);
-        texture.name = "Background Wave Sprite";
-        texture.wrapMode = TextureWrapMode.Repeat;
-        texture.filterMode = FilterMode.Bilinear;
-
-        for (int y = 0; y < height; y++)
-        {
-            for (int x = 0; x < width; x++)
-            {
-                float normalizedX = x / (float)width;
-                float center = height * (0.5f + 0.12f * Mathf.Sin(normalizedX * Mathf.PI * 2f));
-                float distance = Mathf.Abs(y - center);
-                float alpha = Mathf.Clamp01(1f - distance / 22f);
-                alpha *= 0.55f;
-
-                texture.SetPixel(x, y, new Color(1f, 1f, 1f, alpha));
-            }
-        }
-
-        texture.Apply();
-
-        return Sprite.Create(
-            texture,
-            new Rect(0f, 0f, width, height),
-            new Vector2(0.5f, 0.5f),
-            100f);
     }
 
     private Sprite CreateMillionaireShapeSprite(int width, int height, Vector2[] points)
