@@ -15,8 +15,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private static readonly Color PanelColor = new Color32(254, 254, 254, 255);
     private static readonly Color ButtonColor = new Color32(254, 254, 254, 255);
     private static readonly Color ButtonHoverColor = new Color32(254, 254, 254, 255);
-    private static readonly Color CorrectColor = new Color32(0, 176, 80, 255);
-    private static readonly Color WrongColor = new Color32(255, 0, 0, 255);
+    private static readonly Color SelectedAnswerBlinkColor = new Color32(218, 228, 23, 255);
     private static readonly Color AccentColor = new Color32(254, 254, 254, 255);
     private static readonly Color TextColor = new Color32(254, 254, 254, 255);
     private static readonly Color FrameTextColor = new Color32(0, 91, 168, 255);
@@ -39,13 +38,16 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private GameObject feedbackScreen;
     private GameObject finalScreen;
     private GameObject homeConfirmationOverlay;
+    private Image superLogoImage;
+    private Button startButton;
 
     private Font regularFont;
     private Font boldFont;
     private Sprite logoSprite;
     private Sprite pmufLogoSprite;
     private Sprite minuLogoSprite;
-    private Sprite arbitrLogoSprite;
+    private Sprite superLogoSprite;
+    private Sprite[] countdownLogoSprites;
     private Sprite roundedRectSprite;
     private Sprite millionaireQuestionSprite;
     private Sprite millionaireAnswerSprite;
@@ -54,11 +56,13 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private RenderTexture backgroundVideoTexture;
     private int currentQuestionIndex;
     private int correctAnswers;
+    private int selectedAnswerIndex;
     private bool answerLocked;
     private bool superGameActive;
     private bool superGamePlayed;
     private bool feedbackWasInterruptedByHomeConfirmation;
     private Coroutine feedbackRoutine;
+    private Coroutine countdownRoutine;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void Bootstrap()
@@ -229,9 +233,9 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     {
         CreateLogo(parent);
 
-        CreateLogoImage(parent, arbitrLogoSprite, "Arbitr Logo", new Vector2(0.5f, 0.47f), new Vector2(1180f * 2f, 270f * 2f));
+        superLogoImage = CreateLogoImage(parent, superLogoSprite, "Super Logo", new Vector2(0.5f, 0.47f), new Vector2(1180f * 2f, 270f * 2f));
 
-        Button startButton = CreateMillionaireAnswerButton(parent, "Start Button", new Vector2(0.5f, 0.12f), new Vector2(620f, 118f), StartQuiz);
+        startButton = CreateMillionaireAnswerButton(parent, "Start Button", new Vector2(0.5f, 0.12f), new Vector2(620f, 118f), StartCountdown);
         Text startButtonLabel = startButton.GetComponentInChildren<Text>();
         startButtonLabel.text = "Начать";
         startButtonLabel.fontSize = 46;
@@ -287,16 +291,16 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private void CreateLogo(Transform parent)
     {
         float logo_multiplier = 1.5f;
-        CreateLogoImage(parent, pmufLogoSprite, "PMUF Logo", new Vector2(0.23f, 0.85f), new Vector2(360f * logo_multiplier, 150f * logo_multiplier));
-        CreateLogoImage(parent, logoSprite, "Brand Logo", new Vector2(0.52f, 0.85f), new Vector2(360f * logo_multiplier, 150f * logo_multiplier));
-        CreateLogoImage(parent, minuLogoSprite, "MINU Logo", new Vector2(0.79f, 0.85f), new Vector2(360f * logo_multiplier, 150f * logo_multiplier));
+        CreateLogoImage(parent, pmufLogoSprite, "PMUF Logo", new Vector2(0.21f, 0.85f), new Vector2(360f * logo_multiplier, 150f * logo_multiplier));
+        CreateLogoImage(parent, minuLogoSprite, "Brand Logo", new Vector2(0.52f, 0.85f), new Vector2(360f * logo_multiplier, 150f * logo_multiplier));
+        CreateLogoImage(parent, logoSprite, "MINU Logo", new Vector2(0.79f, 0.85f), new Vector2(360f * logo_multiplier, 150f * logo_multiplier));
     }
 
-    private void CreateLogoImage(Transform parent, Sprite sprite, string name, Vector2 anchor, Vector2 size)
+    private Image CreateLogoImage(Transform parent, Sprite sprite, string name, Vector2 anchor, Vector2 size)
     {
         if (sprite == null)
         {
-            return;
+            return null;
         }
 
         GameObject logoObject = new GameObject(name);
@@ -312,6 +316,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         image.sprite = sprite;
         image.preserveAspect = true;
         image.raycastTarget = false;
+        return image;
     }
 
     private void CreateQuestionScreen(Transform parent)
@@ -560,6 +565,33 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         ShowQuestion();
     }
 
+    private void StartCountdown()
+    {
+        if (countdownRoutine == null)
+        {
+            countdownRoutine = StartCoroutine(ShowStartCountdown());
+        }
+    }
+
+    private IEnumerator ShowStartCountdown()
+    {
+        startButton.gameObject.SetActive(false);
+
+        for (int i = 0; i < countdownLogoSprites.Length; i++)
+        {
+            if (countdownLogoSprites[i] != null)
+            {
+                superLogoImage.sprite = countdownLogoSprites[i];
+            }
+
+            yield return new WaitForSeconds(1f);
+        }
+
+        superLogoImage.sprite = superLogoSprite;
+        countdownRoutine = null;
+        StartQuiz();
+    }
+
     private void ShowQuestion()
     {
         answerLocked = false;
@@ -599,18 +631,11 @@ public sealed class MillionaireQuizGame : MonoBehaviour
             correctAnswers++;
         }
 
+        selectedAnswerIndex = answerIndex;
+
         for (int i = 0; i < answerButtons.Length; i++)
         {
             answerButtons[i].interactable = false;
-
-            if (i == answerIndex)
-            {
-                SetButtonColor(answerButtons[i], isCorrect ? CorrectColor : WrongColor);
-            }
-            else if (i == question.CorrectAnswerIndex)
-            {
-                SetButtonColor(answerButtons[i], CorrectColor);
-            }
         }
 
         feedbackTitleLabel.text = isCorrect ? "Правильно!" : "Неправильно";
@@ -619,7 +644,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
             ? "Суперигра завершена. Переходим к призовому QR-коду."
             : isCorrect
                 ? "Ответ засчитан. Переходим к следующему вопросу."
-                : "Выбран неверный вариант. Правильный ответ подсвечен зеленым.";
+                : "Выбран неверный вариант.";
 
         if (feedbackRoutine != null)
         {
@@ -631,9 +656,20 @@ public sealed class MillionaireQuizGame : MonoBehaviour
 
     private IEnumerator ShowFeedbackThenContinue()
     {
-        yield return new WaitForSeconds(0.8f);
+        const int blinkCount = 5;
+        const float blinkInterval = 0.3f;
+
+        for (int i = 0; i < blinkCount; i++)
+        {
+            SetButtonColor(answerButtons[selectedAnswerIndex], SelectedAnswerBlinkColor);
+            yield return new WaitForSeconds(blinkInterval);
+            SetButtonColor(answerButtons[selectedAnswerIndex], ButtonColor);
+            yield return new WaitForSeconds(blinkInterval);
+        }
+
         SetActiveScreen(feedbackScreen);
         yield return new WaitForSeconds(1.6f);
+        feedbackRoutine = null;
 
         if (superGameActive)
         {
@@ -661,12 +697,21 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private void ShowStartScreen()
     {
         HideHomeConfirmation();
+
+        if (countdownRoutine != null)
+        {
+            StopCoroutine(countdownRoutine);
+            countdownRoutine = null;
+        }
+
+        superLogoImage.sprite = superLogoSprite;
+        startButton.gameObject.SetActive(true);
         SetActiveScreen(startScreen);
     }
 
     private void ShowHomeConfirmation()
     {
-        feedbackWasInterruptedByHomeConfirmation = feedbackScreen.activeSelf && feedbackRoutine != null;
+        feedbackWasInterruptedByHomeConfirmation = feedbackRoutine != null;
 
         if (feedbackRoutine != null)
         {
@@ -706,7 +751,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         homeConfirmationOverlay.SetActive(false);
         superGameActive = false;
         answerLocked = false;
-        SetActiveScreen(startScreen);
+        ShowStartScreen();
     }
 
     private void ShowFinalScreen()
@@ -714,7 +759,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         superGameActive = false;
         finalScoreLabel.text = "Ваш результат в основной игре: " + correctAnswers + " из " + questions.Length;
         finalScoreLabel.color = AccentColor;
-        superGamePlayed = true;
+        //superGamePlayed = true;
         finalRewardLabel.text = superGamePlayed
             ? "Поздравляем!!! В качестве приза получите ЛЮБОЙ напиток в нашем баре. Сфотографируйте QR-код и предъявите бармену."
             : "Попробуйте сыграть еще раз. В качестве поощрения за участие Вам предлагается приз в виде БЕЗАЛКОГОЛЬНОГО напитка в нашем баре. Сфотографируйте QR-код и предъявите бармену.";
@@ -924,15 +969,22 @@ public sealed class MillionaireQuizGame : MonoBehaviour
                 100f);
         }
 
-        Texture2D arbitrLogoTexture = Resources.Load<Texture2D>("Brand/arbitr_logo");
-        if (arbitrLogoTexture != null)
+        Texture2D superLogoTexture = Resources.Load<Texture2D>("Brand/logo_super_puper_new");
+        if (superLogoTexture != null)
         {
-            arbitrLogoSprite = Sprite.Create(
-                arbitrLogoTexture,
-                new Rect(0f, 0f, arbitrLogoTexture.width, arbitrLogoTexture.height),
+            superLogoSprite = Sprite.Create(
+                superLogoTexture,
+                new Rect(0f, 0f, superLogoTexture.width, superLogoTexture.height),
                 new Vector2(0.5f, 0.5f),
                 100f);
         }
+
+        countdownLogoSprites = new[]
+        {
+            LoadSpriteFromResources("Brand/logo_number_3"),
+            LoadSpriteFromResources("Brand/logo_number_2"),
+            LoadSpriteFromResources("Brand/logo_number_1")
+        };
 
         roundedRectSprite = CreateRoundedRectSprite();
         millionaireQuestionSprite = CreateMillionaireShapeSprite(
@@ -979,6 +1031,23 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private FontStyle GetRuntimeFontStyle(FontStyle style)
     {
         return style == FontStyle.Bold && boldFont == regularFont ? FontStyle.Bold : FontStyle.Normal;
+    }
+
+    private Sprite LoadSpriteFromResources(string path)
+    {
+        Texture2D texture = Resources.Load<Texture2D>(path);
+
+        if (texture == null)
+        {
+            Debug.LogWarning("Texture was not found in Resources: " + path);
+            return null;
+        }
+
+        return Sprite.Create(
+            texture,
+            new Rect(0f, 0f, texture.width, texture.height),
+            new Vector2(0.5f, 0.5f),
+            100f);
     }
 
     private Sprite CreateRoundedRectSprite()
