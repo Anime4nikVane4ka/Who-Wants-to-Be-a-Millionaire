@@ -10,6 +10,8 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private const int QuestionsCount = 8;
     private const int AnswersCount = 4;
     private const bool StartOnFinalScreenForTesting = false;
+    private const string DebugStartQuestion = "8";
+    private const bool DebugForceSuperGameAccess = true;
 
     private static readonly Color BackgroundColor = new Color32(0, 91, 168, 255);
     private static readonly Color PanelColor = new Color32(254, 254, 254, 255);
@@ -27,6 +29,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private QuestionData superQuestion;
     private Button[] answerButtons;
     private Text[] answerLabels;
+    private RectTransform questionPanel;
     private Text questionLabel;
     private Text progressLabel;
     private Text feedbackTitleLabel;
@@ -35,6 +38,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private Text finalRewardLabel;
     private GameObject startScreen;
     private GameObject questionScreen;
+    private GameObject superGameIntroScreen;
     private GameObject feedbackScreen;
     private GameObject finalScreen;
     private GameObject homeConfirmationOverlay;
@@ -47,6 +51,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private Sprite pmufLogoSprite;
     private Sprite minuLogoSprite;
     private Sprite superLogoSprite;
+    private Sprite superGameLogoSprite;
     private Sprite[] countdownLogoSprites;
     private Sprite roundedRectSprite;
     private Sprite millionaireQuestionSprite;
@@ -63,6 +68,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private bool feedbackWasInterruptedByHomeConfirmation;
     private Coroutine feedbackRoutine;
     private Coroutine countdownRoutine;
+    private Coroutine superGameIntroRoutine;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void Bootstrap()
@@ -135,7 +141,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         {
             Text = "Что такое третейский суд?",
             CorrectAnswerIndex = 2,
-            Answers = new[] { "(А) Постоянно действующее арбитражное учреждение", "(Б) Рекомендованный список арбитров", "(В) Единоличный арбитр или коллегия арбитров", "(Г) Арбитражный суд" }
+            Answers = new[] { "(А) Постоянно действующее\nарбитражное учреждение", "(Б) Рекомендованный список арбитров", "(В) Единоличный арбитр или коллегия арбитров", "(Г) Арбитражный суд" }
         };
 
         questions[4] = new QuestionData
@@ -156,14 +162,14 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         {
             Text = "В договоре поставки отсутствует соглашение сторон о неустойке, но истец требует ее взыскать. В этом случае третейский суд должен:",
             CorrectAnswerIndex = 1,
-            Answers = new[] { "(А) Отказать во взыскании", "(Б) Взыскать неустойку в размере ключевой ставки ЦБ РФ", "(В) Взыскать неустойку в двойном размере\nключевой ставки ЦБ РФ", "(Г) Третейский суд никому ничего не должен.\nОн ведь третейский суд." }
+            Answers = new[] { "(А) Отказать во взыскании", "(Б) Взыскать неустойку в размере\nключевой ставки ЦБ РФ", "(В) Взыскать неустойку в двойном размере ключевой ставки ЦБ РФ", "(Г) Третейский суд никому ничего не\nдолжен. Он ведь третейский суд." }
         };
 
         questions[7] = new QuestionData
         {
             Text = "Право стороны на односторонний отказ от исполнения обязательства может быть реализовано:",
             CorrectAnswerIndex = 2,
-            Answers = new[] { "(А) Если это право предусмотрено договором", "(Б) Если это право предусмотрено законом или договором", "(В) Разумно и добросовестно, если это право предусмотрено законом или договором", "(Г) Обязательство должно исполняться в любом случае" }
+            Answers = new[] { "(А) Если это право предусмотрено договором", "(Б) Если это право предусмотрено законом или договором", "(В) Разумно и добросовестно,\nесли это право предусмотрено\nзаконом или договором", "(Г) Обязательство должно исполняться\nв любом случае" }
         };
 
         superQuestion = new QuestionData
@@ -218,6 +224,9 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         questionScreen = CreateScreen(canvasObject.transform, "Question Screen");
         CreateQuestionScreen(questionScreen.transform);
 
+        superGameIntroScreen = CreateScreen(canvasObject.transform, "Super Game Intro Screen");
+        CreateSuperGameIntroScreen(superGameIntroScreen.transform);
+
         feedbackScreen = CreateScreen(canvasObject.transform, "Feedback Screen");
         CreateFeedbackScreen(feedbackScreen.transform);
 
@@ -239,6 +248,11 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         Text startButtonLabel = startButton.GetComponentInChildren<Text>();
         startButtonLabel.text = "Начать";
         startButtonLabel.fontSize = 46;
+    }
+
+    private void CreateSuperGameIntroScreen(Transform parent)
+    {
+        CreateLogoImage(parent, superGameLogoSprite, "Super Game Logo", new Vector2(0.5f, 0.47f), new Vector2(1180f * 4f, 270f * 4f));
     }
 
     private void CreateBackgroundVideo(Transform parent)
@@ -323,41 +337,38 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     {
         CreateHomeButton(parent);
 
-        progressLabel = CreateText(parent, "Progress", string.Empty, 38, FontStyle.Bold, TextAnchor.MiddleCenter,
+        progressLabel = CreateText(parent, "Progress", string.Empty, 50, FontStyle.Bold, TextAnchor.MiddleCenter,
             new Vector2(0.5f, 0.82f), new Vector2(460f, 58f), AccentColor);
 
-        CreateMillionaireLine(parent, "Question Connector Line", new Vector2(0.5f, 0.62f), new Vector2(1920f, 5f));
-        CreateMillionaireLine(parent, "Answer Connector Line 1", new Vector2(0.5f, 0.405f), new Vector2(1920f, 5f));
-        CreateMillionaireLine(parent, "Answer Connector Line 2", new Vector2(0.5f, 0.27f), new Vector2(1920f, 5f));
-        RectTransform questionPanel = CreateMillionairePanel(parent, "Question Panel", new Vector2(0.5f, 0.62f), new Vector2(1640f, 270f), millionaireQuestionSprite);
-        questionLabel = CreateText(questionPanel, "Question", string.Empty, 38, FontStyle.Bold, TextAnchor.MiddleCenter,
+        questionPanel = CreateMillionairePanel(parent, "Question Panel", new Vector2(0.5f, 0.62f), new Vector2(1640f, 270f), millionaireQuestionSprite);
+        questionLabel = CreateText(questionPanel, "Question", string.Empty, 60, FontStyle.Bold, TextAnchor.MiddleCenter,
             new Vector2(0.5f, 0.5f), new Vector2(1460f, 214f), FrameTextColor);
         questionLabel.resizeTextForBestFit = true;
-        questionLabel.resizeTextMinSize = 12;
-        questionLabel.resizeTextMaxSize = 38;
+        questionLabel.resizeTextMinSize = 14;
+        questionLabel.resizeTextMaxSize = 60;
 
         answerButtons = new Button[AnswersCount];
         answerLabels = new Text[AnswersCount];
 
         Vector2[] positions =
         {
-            new Vector2(0.29f, 0.405f),
-            new Vector2(0.71f, 0.405f),
-            new Vector2(0.29f, 0.27f),
-            new Vector2(0.71f, 0.27f)
+            new Vector2(0.27f, 0.365f),
+            new Vector2(0.73f, 0.365f),
+            new Vector2(0.27f, 0.145f),
+            new Vector2(0.73f, 0.145f)
         };
 
         for (int i = 0; i < AnswersCount; i++)
         {
             int answerIndex = i;
-            Button button = CreateMillionaireAnswerButton(parent, "Answer " + (i + 1), positions[i], new Vector2(800f, 92f),
+            Button button = CreateMillionaireAnswerButton(parent, "Answer " + (i + 1), positions[i], new Vector2(800f, 180f),
                 () => SelectAnswer(answerIndex));
             Text label = button.GetComponentInChildren<Text>();
             label.alignment = TextAnchor.MiddleCenter;
-            label.fontSize = 26;
-            label.resizeTextForBestFit = true;
-            label.resizeTextMinSize = 18;
-            label.resizeTextMaxSize = 26;
+            label.fontSize = 40;
+            label.resizeTextForBestFit = false;
+            label.resizeTextMinSize = 40;
+            label.resizeTextMaxSize = 40;
             label.rectTransform.anchorMin = Vector2.zero;
             label.rectTransform.anchorMax = Vector2.one;
             label.rectTransform.pivot = new Vector2(0.5f, 0.5f);
@@ -428,24 +439,6 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         text.raycastTarget = false;
 
         return button;
-    }
-
-    private void CreateMillionaireLine(Transform parent, string name, Vector2 anchor, Vector2 size)
-    {
-        GameObject lineObject = new GameObject(name);
-        lineObject.transform.SetParent(parent, false);
-
-        RectTransform rectTransform = lineObject.AddComponent<RectTransform>();
-        rectTransform.anchorMin = anchor;
-        rectTransform.anchorMax = anchor;
-        rectTransform.pivot = new Vector2(0.5f, 0.5f);
-        rectTransform.sizeDelta = size;
-
-        Image image = lineObject.AddComponent<Image>();
-        image.sprite = roundedRectSprite;
-        image.type = Image.Type.Sliced;
-        image.color = PanelColor;
-        image.raycastTarget = false;
     }
 
     private void CreateMillionaireNode(Transform parent, string name, Vector2 anchor, Vector2 size)
@@ -558,11 +551,30 @@ public sealed class MillionaireQuizGame : MonoBehaviour
 
     private void StartQuiz()
     {
-        currentQuestionIndex = 0;
+        currentQuestionIndex = GetDebugStartQuestionIndex();
         correctAnswers = 0;
         superGameActive = false;
         superGamePlayed = false;
         ShowQuestion();
+    }
+
+    private int GetDebugStartQuestionIndex()
+    {
+        if (string.IsNullOrWhiteSpace(DebugStartQuestion))
+        {
+            return 0;
+        }
+
+        if (int.TryParse(DebugStartQuestion, out int questionNumber)
+            && questionNumber >= 1
+            && questionNumber <= questions.Length)
+        {
+            Debug.Log("Debug: викторина начинается с вопроса " + questionNumber + ".");
+            return questionNumber - 1;
+        }
+
+        Debug.LogWarning("Debug Start Question должен содержать номер от 1 до " + questions.Length + ". Викторина начнется с первого вопроса.");
+        return 0;
     }
 
     private void StartCountdown()
@@ -599,8 +611,18 @@ public sealed class MillionaireQuizGame : MonoBehaviour
 
         QuestionData question = GetCurrentQuestion();
         progressLabel.text = superGameActive ? "Суперигра" : "Вопрос " + (currentQuestionIndex + 1) + " из " + questions.Length;
-        progressLabel.fontSize = superGameActive ? 52 : 38;
+        progressLabel.fontSize = superGameActive ? 52 : 50;
+        Vector2 progressAnchor = superGameActive ? new Vector2(0.5f, 0.88f) : new Vector2(0.5f, 0.82f);
+        progressLabel.rectTransform.anchorMin = progressAnchor;
+        progressLabel.rectTransform.anchorMax = progressAnchor;
         questionLabel.text = question.Text;
+        questionLabel.fontSize = superGameActive ? 44 : 60;
+        questionLabel.resizeTextMaxSize = superGameActive ? 44 : 60;
+        Vector2 questionAnchor = superGameActive ? new Vector2(0.5f, 0.655f) : new Vector2(0.5f, 0.62f);
+        questionPanel.anchorMin = questionAnchor;
+        questionPanel.anchorMax = questionAnchor;
+        questionPanel.sizeDelta = superGameActive ? new Vector2(1640f, 330f) : new Vector2(1640f, 270f);
+        questionLabel.rectTransform.sizeDelta = superGameActive ? new Vector2(1460f, 274f) : new Vector2(1460f, 214f);
 
         for (int i = 0; i < answerButtons.Length; i++)
         {
@@ -685,7 +707,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
             yield break;
         }
 
-        if (correctAnswers >= 4)
+        if (correctAnswers >= 4 || DebugForceSuperGameAccess)
         {
             ShowSuperGame();
             yield break;
@@ -697,6 +719,12 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private void ShowStartScreen()
     {
         HideHomeConfirmation();
+
+        if (superGameIntroRoutine != null)
+        {
+            StopCoroutine(superGameIntroRoutine);
+            superGameIntroRoutine = null;
+        }
 
         if (countdownRoutine != null)
         {
@@ -770,6 +798,14 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private void ShowSuperGame()
     {
         superGameActive = true;
+        SetActiveScreen(superGameIntroScreen);
+        superGameIntroRoutine = StartCoroutine(ShowSuperGameAfterIntro());
+    }
+
+    private IEnumerator ShowSuperGameAfterIntro()
+    {
+        yield return new WaitForSeconds(3f);
+        superGameIntroRoutine = null;
         ShowQuestion();
     }
 
@@ -905,6 +941,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     {
         startScreen.SetActive(activeScreen == startScreen);
         questionScreen.SetActive(activeScreen == questionScreen);
+        superGameIntroScreen.SetActive(activeScreen == superGameIntroScreen);
         feedbackScreen.SetActive(activeScreen == feedbackScreen);
         finalScreen.SetActive(activeScreen == finalScreen);
     }
@@ -979,6 +1016,8 @@ public sealed class MillionaireQuizGame : MonoBehaviour
                 100f);
         }
 
+        superGameLogoSprite = LoadSpriteFromResources("Brand/logo_supergame");
+
         countdownLogoSprites = new[]
         {
             LoadSpriteFromResources("Brand/logo_number_3"),
@@ -990,27 +1029,11 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         millionaireQuestionSprite = CreateMillionaireShapeSprite(
             512,
             96,
-            new[]
-            {
-                new Vector2(44f, 4f),
-                new Vector2(468f, 4f),
-                new Vector2(508f, 48f),
-                new Vector2(468f, 92f),
-                new Vector2(44f, 92f),
-                new Vector2(4f, 48f)
-            });
+            CreateRoundedSideShapePoints(512, 96, 44f));
         millionaireAnswerSprite = CreateMillionaireShapeSprite(
             512,
-            96,
-            new[]
-            {
-                new Vector2(34f, 4f),
-                new Vector2(478f, 4f),
-                new Vector2(508f, 48f),
-                new Vector2(478f, 92f),
-                new Vector2(34f, 92f),
-                new Vector2(4f, 48f)
-            });
+            116,
+            CreateRoundedSideShapePoints(512, 116, 58f));
         millionaireNodeSprite = CreateMillionaireShapeSprite(
             128,
             128,
@@ -1119,6 +1142,36 @@ public sealed class MillionaireQuizGame : MonoBehaviour
             new Rect(0f, 0f, textureWidth, textureHeight),
             new Vector2(0.5f, 0.5f),
             100f * scale);
+    }
+
+    private Vector2[] CreateRoundedSideShapePoints(int width, int height, float sideInset)
+    {
+        const int arcSegments = 24;
+        const float margin = 4f;
+
+        float centerY = height * 0.5f;
+        float radiusY = centerY - margin;
+        float radiusX = sideInset - margin;
+        float rightCenterX = width - sideInset;
+        Vector2[] points = new Vector2[(arcSegments + 1) * 2];
+
+        for (int i = 0; i <= arcSegments; i++)
+        {
+            float angle = Mathf.Lerp(-90f, 90f, i / (float)arcSegments) * Mathf.Deg2Rad;
+            points[i] = new Vector2(
+                rightCenterX + Mathf.Cos(angle) * radiusX,
+                centerY + Mathf.Sin(angle) * radiusY);
+        }
+
+        for (int i = 0; i <= arcSegments; i++)
+        {
+            float angle = Mathf.Lerp(90f, 270f, i / (float)arcSegments) * Mathf.Deg2Rad;
+            points[arcSegments + 1 + i] = new Vector2(
+                sideInset + Mathf.Cos(angle) * radiusX,
+                centerY + Mathf.Sin(angle) * radiusY);
+        }
+
+        return points;
     }
 
     private bool IsPointInsidePolygon(Vector2 point, Vector2[] polygon)
