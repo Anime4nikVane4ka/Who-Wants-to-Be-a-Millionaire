@@ -10,8 +10,8 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private const int QuestionsCount = 8;
     private const int AnswersCount = 4;
     private const bool StartOnFinalScreenForTesting = false;
-    private const string DebugStartQuestion = "8";
-    private const bool DebugForceSuperGameAccess = true;
+    private const string DebugStartQuestion = "";
+    private const bool DebugForceSuperGameAccess = false;
 
     private static readonly Color BackgroundColor = new Color32(0, 91, 168, 255);
     private static readonly Color PanelColor = new Color32(254, 254, 254, 255);
@@ -30,10 +30,10 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private Button[] answerButtons;
     private Text[] answerLabels;
     private RectTransform questionPanel;
+    private RectTransform correctFeedbackShimmer;
     private Text questionLabel;
     private Text progressLabel;
     private Text feedbackTitleLabel;
-    private Text feedbackMessageLabel;
     private Text finalScoreLabel;
     private Text finalRewardLabel;
     private GameObject startScreen;
@@ -54,9 +54,9 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private Sprite superGameLogoSprite;
     private Sprite[] countdownLogoSprites;
     private Sprite roundedRectSprite;
+    private Sprite goldShimmerSprite;
     private Sprite millionaireQuestionSprite;
     private Sprite millionaireAnswerSprite;
-    private Sprite millionaireNodeSprite;
     private VideoPlayer backgroundVideoPlayer;
     private RenderTexture backgroundVideoTexture;
     private int currentQuestionIndex;
@@ -65,6 +65,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
     private bool answerLocked;
     private bool superGameActive;
     private bool superGamePlayed;
+    private bool selectedAnswerWasCorrect;
     private bool feedbackWasInterruptedByHomeConfirmation;
     private Coroutine feedbackRoutine;
     private Coroutine countdownRoutine;
@@ -247,7 +248,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         startButton = CreateMillionaireAnswerButton(parent, "Start Button", new Vector2(0.5f, 0.12f), new Vector2(620f, 118f), StartCountdown);
         Text startButtonLabel = startButton.GetComponentInChildren<Text>();
         startButtonLabel.text = "Начать";
-        startButtonLabel.fontSize = 46;
+        startButtonLabel.fontSize = 70;
     }
 
     private void CreateSuperGameIntroScreen(Transform parent)
@@ -386,11 +387,39 @@ public sealed class MillionaireQuizGame : MonoBehaviour
 
         RectTransform panel = CreatePanel(parent, "Feedback Panel", new Vector2(0.5f, 0.53f), new Vector2(1120f, 470f), PanelColor);
 
-        feedbackTitleLabel = CreateText(panel, "Feedback Title", string.Empty, 64, FontStyle.Bold, TextAnchor.MiddleCenter,
-            new Vector2(0.5f, 0.65f), new Vector2(900f, 100f), FrameTextColor);
+        GameObject shimmerMaskObject = new GameObject("Feedback Shimmer Mask");
+        shimmerMaskObject.transform.SetParent(panel, false);
+        RectTransform shimmerMaskRect = shimmerMaskObject.AddComponent<RectTransform>();
+        shimmerMaskRect.anchorMin = Vector2.zero;
+        shimmerMaskRect.anchorMax = Vector2.one;
+        shimmerMaskRect.offsetMin = Vector2.zero;
+        shimmerMaskRect.offsetMax = Vector2.zero;
 
-        feedbackMessageLabel = CreateText(panel, "Feedback Message", string.Empty, 34, FontStyle.Normal, TextAnchor.MiddleCenter,
-            new Vector2(0.5f, 0.43f), new Vector2(920f, 110f), FrameTextColor);
+        Image shimmerMaskImage = shimmerMaskObject.AddComponent<Image>();
+        shimmerMaskImage.sprite = roundedRectSprite;
+        shimmerMaskImage.type = Image.Type.Sliced;
+        shimmerMaskImage.raycastTarget = false;
+
+        Mask shimmerMask = shimmerMaskObject.AddComponent<Mask>();
+        shimmerMask.showMaskGraphic = false;
+
+        GameObject shimmerObject = new GameObject("Correct Answer Gold Shimmer");
+        shimmerObject.transform.SetParent(shimmerMaskRect, false);
+        correctFeedbackShimmer = shimmerObject.AddComponent<RectTransform>();
+        correctFeedbackShimmer.anchorMin = new Vector2(0.5f, 0.5f);
+        correctFeedbackShimmer.anchorMax = new Vector2(0.5f, 0.5f);
+        correctFeedbackShimmer.pivot = new Vector2(0.5f, 0.5f);
+        correctFeedbackShimmer.sizeDelta = new Vector2(360f, 650f);
+        correctFeedbackShimmer.localEulerAngles = new Vector3(0f, 0f, -14f);
+
+        Image shimmerImage = shimmerObject.AddComponent<Image>();
+        shimmerImage.sprite = goldShimmerSprite;
+        shimmerImage.type = Image.Type.Simple;
+        shimmerImage.raycastTarget = false;
+        shimmerObject.SetActive(false);
+
+        feedbackTitleLabel = CreateText(panel, "Feedback Title", string.Empty, 120, FontStyle.Bold, TextAnchor.MiddleCenter,
+            new Vector2(0.5f, 0.5f), new Vector2(1000f, 220f), FrameTextColor);
     }
 
     private RectTransform CreateMillionairePanel(Transform parent, string name, Vector2 anchor, Vector2 size, Sprite sprite)
@@ -441,24 +470,6 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         return button;
     }
 
-    private void CreateMillionaireNode(Transform parent, string name, Vector2 anchor, Vector2 size)
-    {
-        GameObject nodeObject = new GameObject(name);
-        nodeObject.transform.SetParent(parent, false);
-
-        RectTransform rectTransform = nodeObject.AddComponent<RectTransform>();
-        rectTransform.anchorMin = anchor;
-        rectTransform.anchorMax = anchor;
-        rectTransform.pivot = new Vector2(0.5f, 0.5f);
-        rectTransform.sizeDelta = size;
-
-        Image image = nodeObject.AddComponent<Image>();
-        image.sprite = millionaireNodeSprite;
-        image.type = Image.Type.Simple;
-        image.color = PanelColor;
-        image.raycastTarget = false;
-    }
-
     private void CreateFinalScreen(Transform parent)
     {
         CreateHomeButton(parent);
@@ -480,7 +491,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         Button restartButton = CreateMillionaireAnswerButton(parent, "Restart Button", new Vector2(0.5f, 0.12f), new Vector2(620f, 104f), StartQuiz);
         Text restartButtonLabel = restartButton.GetComponentInChildren<Text>();
         restartButtonLabel.text = "Начать заново";
-        restartButtonLabel.fontSize = 38;
+        restartButtonLabel.fontSize = 60;
     }
 
     private void CreateHomeButton(Transform parent)
@@ -496,19 +507,22 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         Image dimmer = parent.gameObject.AddComponent<Image>();
         dimmer.color = new Color(0f, 0f, 0f, 0.42f);
 
-        RectTransform panel = CreatePanel(parent, "Home Confirmation Panel", new Vector2(0.5f, 0.5f), new Vector2(760f, 360f), PanelColor);
+        RectTransform panel = CreatePanel(parent, "Home Confirmation Panel", new Vector2(0.5f, 0.5f), new Vector2(940f, 460f), PanelColor);
 
-        Text title = CreateText(panel, "Home Confirmation Title", "Вернуться на главный экран?", 38, FontStyle.Bold,
-            TextAnchor.MiddleCenter, new Vector2(0.5f, 0.66f), new Vector2(620f, 90f), FrameTextColor);
+        Text title = CreateText(panel, "Home Confirmation Title", "Вернуться на главный экран?", 56, FontStyle.Bold,
+            TextAnchor.MiddleCenter, new Vector2(0.5f, 0.68f), new Vector2(820f, 120f), FrameTextColor);
         title.resizeTextForBestFit = true;
-        title.resizeTextMinSize = 26;
-        title.resizeTextMaxSize = 38;
+        title.resizeTextMinSize = 44;
+        title.resizeTextMaxSize = 56;
 
-        CreateText(panel, "Home Confirmation Text", "Текущая игра будет прервана.", 28, FontStyle.Normal,
-            TextAnchor.MiddleCenter, new Vector2(0.5f, 0.48f), new Vector2(620f, 60f), FrameTextColor);
+        CreateText(panel, "Home Confirmation Text", "Текущая игра будет прервана.", 38, FontStyle.Normal,
+            TextAnchor.MiddleCenter, new Vector2(0.5f, 0.48f), new Vector2(780f, 70f), FrameTextColor);
 
-        CreateButton(panel, "Confirm Home Button", "Да", new Vector2(0.32f, 0.22f), new Vector2(220f, 78f), ConfirmReturnHome);
-        CreateButton(panel, "Cancel Home Button", "Нет", new Vector2(0.68f, 0.22f), new Vector2(220f, 78f), HideHomeConfirmation);
+        Button confirmButton = CreateButton(panel, "Confirm Home Button", "Да", new Vector2(0.32f, 0.21f), new Vector2(280f, 104f), ConfirmReturnHome);
+        confirmButton.GetComponentInChildren<Text>().fontSize = 50;
+
+        Button cancelButton = CreateButton(panel, "Cancel Home Button", "Нет", new Vector2(0.68f, 0.21f), new Vector2(280f, 104f), HideHomeConfirmation);
+        cancelButton.GetComponentInChildren<Text>().fontSize = 50;
     }
 
     private void CreateQrPlaceholder(Transform parent)
@@ -642,6 +656,7 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         answerLocked = true;
         QuestionData question = GetCurrentQuestion();
         bool isCorrect = answerIndex == question.CorrectAnswerIndex;
+        selectedAnswerWasCorrect = isCorrect;
 
         if (superGameActive)
         {
@@ -662,11 +677,6 @@ public sealed class MillionaireQuizGame : MonoBehaviour
 
         feedbackTitleLabel.text = isCorrect ? "Правильно!" : "Неправильно";
         feedbackTitleLabel.color = FrameTextColor;
-        feedbackMessageLabel.text = superGameActive
-            ? "Суперигра завершена. Переходим к призовому QR-коду."
-            : isCorrect
-                ? "Ответ засчитан. Переходим к следующему вопросу."
-                : "Выбран неверный вариант.";
 
         if (feedbackRoutine != null)
         {
@@ -689,8 +699,24 @@ public sealed class MillionaireQuizGame : MonoBehaviour
             yield return new WaitForSeconds(blinkInterval);
         }
 
+        correctFeedbackShimmer.gameObject.SetActive(false);
+        feedbackTitleLabel.rectTransform.anchoredPosition = Vector2.zero;
+        feedbackTitleLabel.rectTransform.localEulerAngles = Vector3.zero;
+        feedbackTitleLabel.color = selectedAnswerWasCorrect
+            ? new Color(FrameTextColor.r, FrameTextColor.g, FrameTextColor.b, 0f)
+            : FrameTextColor;
         SetActiveScreen(feedbackScreen);
-        yield return new WaitForSeconds(1.6f);
+
+        if (selectedAnswerWasCorrect)
+        {
+            StartCoroutine(PlayCorrectFeedbackAnimation());
+        }
+        else
+        {
+            StartCoroutine(PlayIncorrectFeedbackTitleDrop());
+        }
+
+        yield return new WaitForSeconds(5f);
         feedbackRoutine = null;
 
         if (superGameActive)
@@ -714,6 +740,120 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         }
 
         ShowFinalScreen();
+    }
+
+    private IEnumerator PlayCorrectFeedbackAnimation()
+    {
+        const float fadeDuration = 1.2f;
+        float elapsed = 0f;
+
+        while (elapsed < fadeDuration)
+        {
+            elapsed += Time.deltaTime;
+            float progress = Mathf.Clamp01(elapsed / fadeDuration);
+            float smoothProgress = progress * progress * (3f - 2f * progress);
+            feedbackTitleLabel.color = new Color(
+                FrameTextColor.r,
+                FrameTextColor.g,
+                FrameTextColor.b,
+                smoothProgress);
+            yield return null;
+        }
+
+        feedbackTitleLabel.color = FrameTextColor;
+        yield return PlayCorrectFeedbackShimmer();
+    }
+
+    private IEnumerator PlayCorrectFeedbackShimmer()
+    {
+        const float duration = 3f;
+        const float startX = -760f;
+        const float endX = 760f;
+
+        correctFeedbackShimmer.anchoredPosition = new Vector2(startX, 0f);
+        correctFeedbackShimmer.gameObject.SetActive(true);
+
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float progress = Mathf.Clamp01(elapsed / duration);
+            float smoothProgress = progress * progress * (3f - 2f * progress);
+            correctFeedbackShimmer.anchoredPosition = new Vector2(Mathf.Lerp(startX, endX, smoothProgress), 0f);
+            yield return null;
+        }
+
+        correctFeedbackShimmer.gameObject.SetActive(false);
+    }
+
+    private IEnumerator PlayIncorrectFeedbackTitleDrop()
+    {
+        RectTransform titleTransform = feedbackTitleLabel.rectTransform;
+
+        yield return AnimateFeedbackTitlePose(
+            titleTransform,
+            new Vector2(0f, 650f),
+            0f,
+            new Vector2(0f, 0f),
+            0f,
+            1.5f,
+            true);
+
+        yield return AnimateFeedbackTitlePose(
+            titleTransform,
+            Vector2.zero,
+            0f,
+            new Vector2(0f, -18f),
+            18f,
+            0.28f,
+            false);
+
+        yield return AnimateFeedbackTitlePose(
+            titleTransform,
+            new Vector2(0f, -18f),
+            18f,
+            new Vector2(0f, 10f),
+            -11f,
+            0.38f,
+            false);
+
+        yield return AnimateFeedbackTitlePose(
+            titleTransform,
+            new Vector2(0f, 10f),
+            -11f,
+            Vector2.zero,
+            0f,
+            0.5f,
+            false);
+    }
+
+    private IEnumerator AnimateFeedbackTitlePose(
+        RectTransform titleTransform,
+        Vector2 startPosition,
+        float startAngle,
+        Vector2 endPosition,
+        float endAngle,
+        float duration,
+        bool easeIn)
+    {
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float progress = Mathf.Clamp01(elapsed / duration);
+            float easedProgress = easeIn
+                ? progress * progress * progress
+                : progress * progress * (3f - 2f * progress);
+
+            titleTransform.anchoredPosition = Vector2.Lerp(startPosition, endPosition, easedProgress);
+            titleTransform.localEulerAngles = new Vector3(0f, 0f, Mathf.LerpAngle(startAngle, endAngle, easedProgress));
+            yield return null;
+        }
+
+        titleTransform.anchoredPosition = endPosition;
+        titleTransform.localEulerAngles = new Vector3(0f, 0f, endAngle);
     }
 
     private void ShowStartScreen()
@@ -1026,24 +1166,9 @@ public sealed class MillionaireQuizGame : MonoBehaviour
         };
 
         roundedRectSprite = CreateRoundedRectSprite();
-        millionaireQuestionSprite = CreateMillionaireShapeSprite(
-            512,
-            96,
-            CreateRoundedSideShapePoints(512, 96, 44f));
-        millionaireAnswerSprite = CreateMillionaireShapeSprite(
-            512,
-            116,
-            CreateRoundedSideShapePoints(512, 116, 58f));
-        millionaireNodeSprite = CreateMillionaireShapeSprite(
-            128,
-            128,
-            new[]
-            {
-                new Vector2(64f, 4f),
-                new Vector2(124f, 64f),
-                new Vector2(64f, 124f),
-                new Vector2(4f, 64f)
-            });
+        goldShimmerSprite = CreateGoldShimmerSprite();
+        millionaireQuestionSprite = LoadSpriteFromResources("Brand/question_field");
+        millionaireAnswerSprite = LoadSpriteFromResources("Brand/answer_field");
     }
 
     private Font GetFontForStyle(FontStyle style)
@@ -1104,34 +1229,31 @@ public sealed class MillionaireQuizGame : MonoBehaviour
             new Vector4(radius, radius, radius, radius));
     }
 
-    private Sprite CreateMillionaireShapeSprite(int width, int height, Vector2[] points)
+    private Sprite CreateGoldShimmerSprite()
     {
-        const int scale = 4;
-        const float edgeSoftness = 3f;
+        const int width = 256;
+        const int height = 4;
 
-        int textureWidth = width * scale;
-        int textureHeight = height * scale;
-        Vector2[] scaledPoints = new Vector2[points.Length];
-
-        for (int i = 0; i < points.Length; i++)
-        {
-            scaledPoints[i] = points[i] * scale;
-        }
-
-        Texture2D texture = new Texture2D(textureWidth, textureHeight, TextureFormat.RGBA32, false);
-        texture.name = "Millionaire Shape Sprite";
+        Texture2D texture = new Texture2D(width, height, TextureFormat.RGBA32, false);
+        texture.name = "Gold Shimmer Sprite";
         texture.wrapMode = TextureWrapMode.Clamp;
         texture.filterMode = FilterMode.Bilinear;
 
-        for (int y = 0; y < textureHeight; y++)
+        for (int x = 0; x < width; x++)
         {
-            for (int x = 0; x < textureWidth; x++)
+            float normalizedX = x / (float)(width - 1);
+            float distanceFromCenter = Mathf.Abs(normalizedX - 0.5f) * 2f;
+            float broadGlow = Mathf.Pow(Mathf.Clamp01(1f - distanceFromCenter), 2f);
+            float brightCore = Mathf.Pow(Mathf.Clamp01(1f - distanceFromCenter), 10f);
+            Color shimmerColor = Color.Lerp(
+                new Color(1f, 0.64f, 0.08f, 0f),
+                new Color(1f, 0.96f, 0.66f, 0f),
+                brightCore);
+            shimmerColor.a = broadGlow * 0.28f + brightCore * 0.48f;
+
+            for (int y = 0; y < height; y++)
             {
-                Vector2 point = new Vector2(x + 0.5f, y + 0.5f);
-                bool inside = IsPointInsidePolygon(point, scaledPoints);
-                float distanceToEdge = GetDistanceToPolygonEdge(point, scaledPoints);
-                float alpha = inside ? 1f : Mathf.Clamp01(1f - distanceToEdge / edgeSoftness);
-                texture.SetPixel(x, y, new Color(1f, 1f, 1f, alpha));
+                texture.SetPixel(x, y, shimmerColor);
             }
         }
 
@@ -1139,99 +1261,9 @@ public sealed class MillionaireQuizGame : MonoBehaviour
 
         return Sprite.Create(
             texture,
-            new Rect(0f, 0f, textureWidth, textureHeight),
+            new Rect(0f, 0f, width, height),
             new Vector2(0.5f, 0.5f),
-            100f * scale);
-    }
-
-    private Vector2[] CreateRoundedSideShapePoints(int width, int height, float sideInset)
-    {
-        const int arcSegments = 24;
-        const float margin = 4f;
-
-        float centerY = height * 0.5f;
-        float radiusY = centerY - margin;
-        float radiusX = sideInset - margin;
-        float rightCenterX = width - sideInset;
-        Vector2[] points = new Vector2[(arcSegments + 1) * 2];
-
-        for (int i = 0; i <= arcSegments; i++)
-        {
-            float angle = Mathf.Lerp(-90f, 90f, i / (float)arcSegments) * Mathf.Deg2Rad;
-            points[i] = new Vector2(
-                rightCenterX + Mathf.Cos(angle) * radiusX,
-                centerY + Mathf.Sin(angle) * radiusY);
-        }
-
-        for (int i = 0; i <= arcSegments; i++)
-        {
-            float angle = Mathf.Lerp(90f, 270f, i / (float)arcSegments) * Mathf.Deg2Rad;
-            points[arcSegments + 1 + i] = new Vector2(
-                sideInset + Mathf.Cos(angle) * radiusX,
-                centerY + Mathf.Sin(angle) * radiusY);
-        }
-
-        return points;
-    }
-
-    private bool IsPointInsidePolygon(Vector2 point, Vector2[] polygon)
-    {
-        bool inside = false;
-        int previousIndex = polygon.Length - 1;
-
-        for (int currentIndex = 0; currentIndex < polygon.Length; currentIndex++)
-        {
-            Vector2 current = polygon[currentIndex];
-            Vector2 previous = polygon[previousIndex];
-
-            bool intersects = (current.y > point.y) != (previous.y > point.y)
-                && point.x < (previous.x - current.x) * (point.y - current.y) / (previous.y - current.y) + current.x;
-
-            if (intersects)
-            {
-                inside = !inside;
-            }
-
-            previousIndex = currentIndex;
-        }
-
-        return inside;
-    }
-
-    private float GetDistanceToPolygonEdge(Vector2 point, Vector2[] polygon)
-    {
-        float closestDistance = float.PositiveInfinity;
-        int previousIndex = polygon.Length - 1;
-
-        for (int currentIndex = 0; currentIndex < polygon.Length; currentIndex++)
-        {
-            float distance = GetDistanceToSegment(point, polygon[previousIndex], polygon[currentIndex]);
-
-            if (distance < closestDistance)
-            {
-                closestDistance = distance;
-            }
-
-            previousIndex = currentIndex;
-        }
-
-        return closestDistance;
-    }
-
-    private float GetDistanceToSegment(Vector2 point, Vector2 start, Vector2 end)
-    {
-        Vector2 segment = end - start;
-        float segmentLengthSquared = segment.sqrMagnitude;
-
-        if (segmentLengthSquared <= Mathf.Epsilon)
-        {
-            return Vector2.Distance(point, start);
-        }
-
-        float t = Mathf.Clamp01(Vector2.Dot(point - start, segment) / segmentLengthSquared);
-        Vector2 projection = start + segment * t;
-
-        return Vector2.Distance(point, projection);
+            100f);
     }
 
     private float GetRoundedRectAlpha(int x, int y, int size, int radius)
