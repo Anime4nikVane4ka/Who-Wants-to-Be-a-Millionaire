@@ -1,0 +1,780 @@
+fileFormatVersion: 2
+guid: 5dcc7059c4dc2894095833af7cbb4ed9
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4730527109328385187
+    second: logo_metallic_3_0
+  - first:
+      213: -2175563062672203282
+    second: logo_metallic_3_1
+  - first:
+      213: 4338879721135481368
+    second: logo_metallic_3_2
+  - first:
+      213: -6225896822064109440
+    second: logo_metallic_3_3
+  - first:
+      213: -2794578718170021501
+    second: logo_metallic_3_4
+  - first:
+      213: 4032547832033315328
+    second: logo_metallic_3_5
+  - first:
+      213: -5819744003181942887
+    second: logo_metallic_3_6
+  - first:
+      213: -5194850253519477731
+    second: logo_metallic_3_7
+  - first:
+      213: 6918708759900646507
+    second: logo_metallic_3_8
+  - first:
+      213: -3017814441538314011
+    second: logo_metallic_3_9
+  - first:
+      213: 74833968760091776
+    second: logo_metallic_3_10
+  - first:
+      213: 4505381463177451316
+    second: logo_metallic_3_11
+  - first:
+      213: 6345364272994446901
+    second: logo_metallic_3_12
+  - first:
+      213: 2564776518905964920
+    second: logo_metallic_3_13
+  - first:
+      213: -8371453818976761789
+    second: logo_metallic_3_14
+  - first:
+      213: -6857792040330655127
+    second: logo_metallic_3_15
+  - first:
+      213: 2125332193726746405
+    second: logo_metallic_3_16
+  - first:
+      213: 3250679727142351303
+    second: logo_metallic_3_17
+  - first:
+      213: 2764974348919470194
+    second: logo_metallic_3_18
+  - first:
+      213: -1425699777510597108
+    second: logo_metallic_3_19
+  - first:
+      213: -6902577024388584551
+    second: logo_metallic_3_20
+  - first:
+      213: -7042895056828029018
+    second: logo_metallic_3_21
+  - first:
+      213: 6097530643414392369
+    second: logo_metallic_3_22
+  - first:
+      213: -2329205090692986624
+    second: logo_metallic_3_23
+  - first:
+      213: 1132247108003731129
+    second: logo_metallic_3_24
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: logo_metallic_3_0
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 1124
+        width: 84
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5b402058aac95eb0800000000000000
+      internalID: -4730527109328385187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_3_1
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 1139
+        width: 63
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee166fecbe8dec1e0800000000000000
+      internalID: -2175563062672203282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_3_2
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 1158
+        width: 128
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8122d653e1cc63c30800000000000000
+      internalID: 4338879721135481368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_3_3
+      rect:
+        serializedVersion: 2
+        x: 493
+        y: 1186
+        width: 55
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 088a2a893db2999a0800000000000000
+      internalID: -6225896822064109440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_3_4
+      rect:
+        serializedVersion: 2
+        x: 550
+        y: 1188
+        width: 64
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3810c9e4679a739d0800000000000000
+      internalID: -2794578718170021501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_3_5
+      rect:
+        serializedVersion: 2
+        x: 613
+        y: 1190
+        width: 61
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00a0e1c43ec76f730800000000000000
+      internalID: 4032547832033315328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_3_6
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 1182
+        width: 68
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99761a6d9ad1c3fa0800000000000000
+      internalID: -5819744003181942887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_3_7
+      rect:
+        serializedVersion: 2
+        x: 737
+        y: 1172
+        width: 62
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d14af99c73f28e7b0800000000000000
+      internalID: -5194850253519477731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_3_8
+      rect:
+        serializedVersion: 2
+        x: 784
+        y: 1154
+        width: 65
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6ce242d5f0340060800000000000000
+      internalID: 6918708759900646507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_3_9
+      rect:
+        serializedVersion: 2
+        x: 856
+        y: 1098
+        width: 120
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e0a01621c19e16d0800000000000000
+      internalID: -3017814441538314011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_3_10
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 758
+        width: 1000
+        height: 408
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 084f31d191dd90100800000000000000
+      internalID: 74833968760091776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_3_11
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 1084
+        width: 73
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 437525af194568e30800000000000000
+      internalID: 4505381463177451316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_3_12
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 430
+        width: 301
+        height: 439
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53ee946ef234f0850800000000000000
+      internalID: 6345364272994446901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_3_13
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 660
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87927a9b7aae79320800000000000000
+      internalID: 2564776518905964920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_3_14
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 546
+        width: 18
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3488d420b1f92db80800000000000000
+      internalID: -8371453818976761789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_3_15
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 133
+        width: 998
+        height: 412
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96a0794397a34d0a0800000000000000
+      internalID: -6857792040330655127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_3_16
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 92
+        width: 180
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52fc8c4ae52be7d10800000000000000
+      internalID: 2125332193726746405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_3_17
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 65
+        width: 67
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c132ee2dfbbc1d20800000000000000
+      internalID: 3250679727142351303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_3_18
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 44
+        width: 64
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 278796855892f5620800000000000000
+      internalID: 2764974348919470194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_3_19
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 33
+        width: 67
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0e90252b95e63ce0800000000000000
+      internalID: -1425699777510597108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_3_20
+      rect:
+        serializedVersion: 2
+        x: 716
+        y: 46
+        width: 116
+        height: 105
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99bab8a84ce1530a0800000000000000
+      internalID: -6902577024388584551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_3_21
+      rect:
+        serializedVersion: 2
+        x: 837
+        y: 92
+        width: 118
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a7296bb24c924e90800000000000000
+      internalID: -7042895056828029018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_3_22
+      rect:
+        serializedVersion: 2
+        x: 485
+        y: 36
+        width: 56
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13e16c760d7ce9450800000000000000
+      internalID: 6097530643414392369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_3_23
+      rect:
+        serializedVersion: 2
+        x: 538
+        y: 30
+        width: 60
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00986388f400dafd0800000000000000
+      internalID: -2329205090692986624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_3_24
+      rect:
+        serializedVersion: 2
+        x: 595
+        y: 28
+        width: 63
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b6968eeebc86bf00800000000000000
+      internalID: 1132247108003731129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      logo_metallic_3_0: -4730527109328385187
+      logo_metallic_3_1: -2175563062672203282
+      logo_metallic_3_10: 74833968760091776
+      logo_metallic_3_11: 4505381463177451316
+      logo_metallic_3_12: 6345364272994446901
+      logo_metallic_3_13: 2564776518905964920
+      logo_metallic_3_14: -8371453818976761789
+      logo_metallic_3_15: -6857792040330655127
+      logo_metallic_3_16: 2125332193726746405
+      logo_metallic_3_17: 3250679727142351303
+      logo_metallic_3_18: 2764974348919470194
+      logo_metallic_3_19: -1425699777510597108
+      logo_metallic_3_2: 4338879721135481368
+      logo_metallic_3_20: -6902577024388584551
+      logo_metallic_3_21: -7042895056828029018
+      logo_metallic_3_22: 6097530643414392369
+      logo_metallic_3_23: -2329205090692986624
+      logo_metallic_3_24: 1132247108003731129
+      logo_metallic_3_3: -6225896822064109440
+      logo_metallic_3_4: -2794578718170021501
+      logo_metallic_3_5: 4032547832033315328
+      logo_metallic_3_6: -5819744003181942887
+      logo_metallic_3_7: -5194850253519477731
+      logo_metallic_3_8: 6918708759900646507
+      logo_metallic_3_9: -3017814441538314011
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

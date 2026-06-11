@@ -1,0 +1,1183 @@
+fileFormatVersion: 2
+guid: 2167e7aac12818547833e5fc421dd5e5
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8765560407141877632
+    second: MINU_logo_new_0
+  - first:
+      213: 3639506251319555058
+    second: MINU_logo_new_1
+  - first:
+      213: -2775207509972396468
+    second: MINU_logo_new_2
+  - first:
+      213: 3330036337783373250
+    second: MINU_logo_new_3
+  - first:
+      213: 1536780518831983854
+    second: MINU_logo_new_4
+  - first:
+      213: 2300359955815001515
+    second: MINU_logo_new_5
+  - first:
+      213: -8567080252205666379
+    second: MINU_logo_new_6
+  - first:
+      213: 3752914660678352662
+    second: MINU_logo_new_7
+  - first:
+      213: -7721715191788645404
+    second: MINU_logo_new_8
+  - first:
+      213: 6710649646373783130
+    second: MINU_logo_new_9
+  - first:
+      213: 1645354116135176488
+    second: MINU_logo_new_10
+  - first:
+      213: 2485041523640234556
+    second: MINU_logo_new_11
+  - first:
+      213: -7722089337038024477
+    second: MINU_logo_new_12
+  - first:
+      213: 8894932935034522580
+    second: MINU_logo_new_13
+  - first:
+      213: -7216128760203653228
+    second: MINU_logo_new_14
+  - first:
+      213: 2686099713290321075
+    second: MINU_logo_new_15
+  - first:
+      213: -2366845355082308265
+    second: MINU_logo_new_16
+  - first:
+      213: -8137563851521979753
+    second: MINU_logo_new_17
+  - first:
+      213: 4749019471907446340
+    second: MINU_logo_new_18
+  - first:
+      213: 7990890881214573948
+    second: MINU_logo_new_19
+  - first:
+      213: -6132768951850753134
+    second: MINU_logo_new_20
+  - first:
+      213: 545385208767853306
+    second: MINU_logo_new_21
+  - first:
+      213: -90237232902553447
+    second: MINU_logo_new_22
+  - first:
+      213: 589653734902212677
+    second: MINU_logo_new_23
+  - first:
+      213: -8226578069943065883
+    second: MINU_logo_new_24
+  - first:
+      213: -1835451445447274830
+    second: MINU_logo_new_25
+  - first:
+      213: 735691874222989425
+    second: MINU_logo_new_26
+  - first:
+      213: 7591679156378815136
+    second: MINU_logo_new_27
+  - first:
+      213: 2551641607344290134
+    second: MINU_logo_new_28
+  - first:
+      213: 7466740862605162636
+    second: MINU_logo_new_29
+  - first:
+      213: 9161360515862451067
+    second: MINU_logo_new_30
+  - first:
+      213: 6546194144589830566
+    second: MINU_logo_new_31
+  - first:
+      213: -5753247379932330662
+    second: MINU_logo_new_32
+  - first:
+      213: -4057001247881213362
+    second: MINU_logo_new_33
+  - first:
+      213: -15650671725356391
+    second: MINU_logo_new_34
+  - first:
+      213: -1165481359436006817
+    second: MINU_logo_new_35
+  - first:
+      213: 4359958681943922671
+    second: MINU_logo_new_36
+  - first:
+      213: 7495888271240987710
+    second: MINU_logo_new_37
+  - first:
+      213: 3621551874153507520
+    second: MINU_logo_new_38
+  - first:
+      213: 8890611644352807914
+    second: MINU_logo_new_39
+  - first:
+      213: -2818332701275935363
+    second: MINU_logo_new_40
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: MINU_logo_new_0
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 93
+        width: 682
+        height: 704
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0878be49fb685a970800000000000000
+      internalID: 8765560407141877632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_1
+      rect:
+        serializedVersion: 2
+        x: 887
+        y: 608
+        width: 76
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f337b317af128230800000000000000
+      internalID: 3639506251319555058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_2
+      rect:
+        serializedVersion: 2
+        x: 983
+        y: 608
+        width: 59
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c46591e297b7c79d0800000000000000
+      internalID: -2775207509972396468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_3
+      rect:
+        serializedVersion: 2
+        x: 1060
+        y: 608
+        width: 60
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cd78bae76aa63e20800000000000000
+      internalID: 3330036337783373250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_4
+      rect:
+        serializedVersion: 2
+        x: 1140
+        y: 608
+        width: 61
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eec88ba5dbdb35510800000000000000
+      internalID: 1536780518831983854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_5
+      rect:
+        serializedVersion: 2
+        x: 1216
+        y: 606
+        width: 57
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bade2e521358cef10800000000000000
+      internalID: 2300359955815001515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_6
+      rect:
+        serializedVersion: 2
+        x: 1283
+        y: 608
+        width: 57
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5bf6405a6ed9b1980800000000000000
+      internalID: -8567080252205666379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_7
+      rect:
+        serializedVersion: 2
+        x: 1354
+        y: 608
+        width: 48
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61fb6160008051430800000000000000
+      internalID: 3752914660678352662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_8
+      rect:
+        serializedVersion: 2
+        x: 1418
+        y: 608
+        width: 53
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e353b8c1f4f6d490800000000000000
+      internalID: -7721715191788645404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_9
+      rect:
+        serializedVersion: 2
+        x: 1481
+        y: 606
+        width: 57
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a56c5308c44012d50800000000000000
+      internalID: 6710649646373783130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_10
+      rect:
+        serializedVersion: 2
+        x: 1548
+        y: 608
+        width: 59
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 829c6f5e9d875d610800000000000000
+      internalID: 1645354116135176488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_11
+      rect:
+        serializedVersion: 2
+        x: 1618
+        y: 608
+        width: 53
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c32fba47914ac7220800000000000000
+      internalID: 2485041523640234556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_12
+      rect:
+        serializedVersion: 2
+        x: 1683
+        y: 606
+        width: 71
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e0540e49a0a5d490800000000000000
+      internalID: -7722089337038024477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_13
+      rect:
+        serializedVersion: 2
+        x: 887
+        y: 485
+        width: 90
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4dbc7a58066217b70800000000000000
+      internalID: 8894932935034522580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_14
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 485
+        width: 57
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49fc49210292bdb90800000000000000
+      internalID: -7216128760203653228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_15
+      rect:
+        serializedVersion: 2
+        x: 1057
+        y: 486
+        width: 56
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bcb2f92571f64520800000000000000
+      internalID: 2686099713290321075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_16
+      rect:
+        serializedVersion: 2
+        x: 1126
+        y: 486
+        width: 62
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 755290c80b6472fd0800000000000000
+      internalID: -2366845355082308265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_17
+      rect:
+        serializedVersion: 2
+        x: 1205
+        y: 474
+        width: 69
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79a09fcaac0911f80800000000000000
+      internalID: -8137563851521979753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_18
+      rect:
+        serializedVersion: 2
+        x: 1287
+        y: 486
+        width: 60
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44ed47e5c08e7e140800000000000000
+      internalID: 4749019471907446340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_19
+      rect:
+        serializedVersion: 2
+        x: 1368
+        y: 486
+        width: 60
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7de3bd3be855ee60800000000000000
+      internalID: 7990890881214573948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_20
+      rect:
+        serializedVersion: 2
+        x: 1255
+        y: 432
+        width: 36
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 293246f812704eaa0800000000000000
+      internalID: -6132768951850753134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_21
+      rect:
+        serializedVersion: 2
+        x: 1544
+        y: 432
+        width: 33
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af23c5235f8919700800000000000000
+      internalID: 545385208767853306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_22
+      rect:
+        serializedVersion: 2
+        x: 888
+        y: 363
+        width: 52
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 990445bf6b96fbef0800000000000000
+      internalID: -90237232902553447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_23
+      rect:
+        serializedVersion: 2
+        x: 948
+        y: 362
+        width: 71
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5482451a2fede2800800000000000000
+      internalID: 589653734902212677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_24
+      rect:
+        serializedVersion: 2
+        x: 1027
+        y: 362
+        width: 59
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e26608e4d255dd80800000000000000
+      internalID: -8226578069943065883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_25
+      rect:
+        serializedVersion: 2
+        x: 1093
+        y: 362
+        width: 57
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2be43af82aa2786e0800000000000000
+      internalID: -1835451445447274830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_26
+      rect:
+        serializedVersion: 2
+        x: 1162
+        y: 363
+        width: 62
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 170e33b9cd3b53a00800000000000000
+      internalID: 735691874222989425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_27
+      rect:
+        serializedVersion: 2
+        x: 1242
+        y: 363
+        width: 58
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0aa42b468ff0b5960800000000000000
+      internalID: 7591679156378815136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_28
+      rect:
+        serializedVersion: 2
+        x: 1315
+        y: 362
+        width: 58
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 659fcdfc580496320800000000000000
+      internalID: 2551641607344290134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_29
+      rect:
+        serializedVersion: 2
+        x: 1388
+        y: 363
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c88797901413f9760800000000000000
+      internalID: 7466740862605162636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_30
+      rect:
+        serializedVersion: 2
+        x: 1449
+        y: 362
+        width: 67
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b735547a9d0b32f70800000000000000
+      internalID: 9161360515862451067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_31
+      rect:
+        serializedVersion: 2
+        x: 1532
+        y: 363
+        width: 59
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a9d40b24e0c8da50800000000000000
+      internalID: 6546194144589830566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_32
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 240
+        width: 75
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a55cf2e6dfb5820b0800000000000000
+      internalID: -5753247379932330662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_33
+      rect:
+        serializedVersion: 2
+        x: 970
+        y: 242
+        width: 48
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4a49b62cd2a2b7c0800000000000000
+      internalID: -4057001247881213362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_34
+      rect:
+        serializedVersion: 2
+        x: 1029
+        y: 230
+        width: 69
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99a50570cc568cff0800000000000000
+      internalID: -15650671725356391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_35
+      rect:
+        serializedVersion: 2
+        x: 1115
+        y: 242
+        width: 49
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5a3a7ae0e063dfe0800000000000000
+      internalID: -1165481359436006817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_36
+      rect:
+        serializedVersion: 2
+        x: 1178
+        y: 242
+        width: 53
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe7d5a8325fa18c30800000000000000
+      internalID: 4359958681943922671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_37
+      rect:
+        serializedVersion: 2
+        x: 1236
+        y: 242
+        width: 63
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e340653faaeb60860800000000000000
+      internalID: 7495888271240987710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_38
+      rect:
+        serializedVersion: 2
+        x: 1311
+        y: 230
+        width: 67
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0cae192ed36524230800000000000000
+      internalID: 3621551874153507520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_39
+      rect:
+        serializedVersion: 2
+        x: 1394
+        y: 242
+        width: 57
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae3c991af2cc16b70800000000000000
+      internalID: 8890611644352807914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MINU_logo_new_40
+      rect:
+        serializedVersion: 2
+        x: 1473
+        y: 242
+        width: 57
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7da491275543e8d0800000000000000
+      internalID: -2818332701275935363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      MINU_logo_new_0: 8765560407141877632
+      MINU_logo_new_1: 3639506251319555058
+      MINU_logo_new_10: 1645354116135176488
+      MINU_logo_new_11: 2485041523640234556
+      MINU_logo_new_12: -7722089337038024477
+      MINU_logo_new_13: 8894932935034522580
+      MINU_logo_new_14: -7216128760203653228
+      MINU_logo_new_15: 2686099713290321075
+      MINU_logo_new_16: -2366845355082308265
+      MINU_logo_new_17: -8137563851521979753
+      MINU_logo_new_18: 4749019471907446340
+      MINU_logo_new_19: 7990890881214573948
+      MINU_logo_new_2: -2775207509972396468
+      MINU_logo_new_20: -6132768951850753134
+      MINU_logo_new_21: 545385208767853306
+      MINU_logo_new_22: -90237232902553447
+      MINU_logo_new_23: 589653734902212677
+      MINU_logo_new_24: -8226578069943065883
+      MINU_logo_new_25: -1835451445447274830
+      MINU_logo_new_26: 735691874222989425
+      MINU_logo_new_27: 7591679156378815136
+      MINU_logo_new_28: 2551641607344290134
+      MINU_logo_new_29: 7466740862605162636
+      MINU_logo_new_3: 3330036337783373250
+      MINU_logo_new_30: 9161360515862451067
+      MINU_logo_new_31: 6546194144589830566
+      MINU_logo_new_32: -5753247379932330662
+      MINU_logo_new_33: -4057001247881213362
+      MINU_logo_new_34: -15650671725356391
+      MINU_logo_new_35: -1165481359436006817
+      MINU_logo_new_36: 4359958681943922671
+      MINU_logo_new_37: 7495888271240987710
+      MINU_logo_new_38: 3621551874153507520
+      MINU_logo_new_39: 8890611644352807914
+      MINU_logo_new_4: 1536780518831983854
+      MINU_logo_new_40: -2818332701275935363
+      MINU_logo_new_5: 2300359955815001515
+      MINU_logo_new_6: -8567080252205666379
+      MINU_logo_new_7: 3752914660678352662
+      MINU_logo_new_8: -7721715191788645404
+      MINU_logo_new_9: 6710649646373783130
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,1053 @@
+fileFormatVersion: 2
+guid: edfc4dcb18047b646921365168d3b748
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4822374927712821448
+    second: logo_metallic_supergame_0
+  - first:
+      213: -6915187675192753723
+    second: logo_metallic_supergame_1
+  - first:
+      213: -6699451594096897514
+    second: logo_metallic_supergame_2
+  - first:
+      213: -4521999215096356717
+    second: logo_metallic_supergame_3
+  - first:
+      213: -4539588035686896255
+    second: logo_metallic_supergame_4
+  - first:
+      213: 4584909084627241101
+    second: logo_metallic_supergame_5
+  - first:
+      213: -1228570684867156449
+    second: logo_metallic_supergame_6
+  - first:
+      213: 4452939878802932335
+    second: logo_metallic_supergame_7
+  - first:
+      213: 6178982296198469349
+    second: logo_metallic_supergame_8
+  - first:
+      213: 3998363768592546531
+    second: logo_metallic_supergame_9
+  - first:
+      213: 8016303152276933569
+    second: logo_metallic_supergame_10
+  - first:
+      213: 5869392730292546855
+    second: logo_metallic_supergame_11
+  - first:
+      213: -1277379936253415096
+    second: logo_metallic_supergame_12
+  - first:
+      213: -5796531745367541211
+    second: logo_metallic_supergame_13
+  - first:
+      213: -3617982244267854469
+    second: logo_metallic_supergame_14
+  - first:
+      213: 2573380506322421985
+    second: logo_metallic_supergame_15
+  - first:
+      213: -2079182935207907535
+    second: logo_metallic_supergame_16
+  - first:
+      213: -4675802229471410613
+    second: logo_metallic_supergame_17
+  - first:
+      213: -985789630377001560
+    second: logo_metallic_supergame_18
+  - first:
+      213: 2489886935546896465
+    second: logo_metallic_supergame_19
+  - first:
+      213: 2451747154484960089
+    second: logo_metallic_supergame_20
+  - first:
+      213: -7438140869108846869
+    second: logo_metallic_supergame_21
+  - first:
+      213: -3091529306409455391
+    second: logo_metallic_supergame_22
+  - first:
+      213: 6751518765795686497
+    second: logo_metallic_supergame_23
+  - first:
+      213: 6838620975910798617
+    second: logo_metallic_supergame_24
+  - first:
+      213: -2218235366405452886
+    second: logo_metallic_supergame_25
+  - first:
+      213: -3854699664216094408
+    second: logo_metallic_supergame_26
+  - first:
+      213: -2221905137700765333
+    second: logo_metallic_supergame_27
+  - first:
+      213: -5859726948797494819
+    second: logo_metallic_supergame_28
+  - first:
+      213: 5436802987751556685
+    second: logo_metallic_supergame_29
+  - first:
+      213: -4155217420159209409
+    second: logo_metallic_supergame_30
+  - first:
+      213: -1308548759744138966
+    second: logo_metallic_supergame_31
+  - first:
+      213: -6994683766243460719
+    second: logo_metallic_supergame_32
+  - first:
+      213: -4098242463476001895
+    second: logo_metallic_supergame_33
+  - first:
+      213: -4218576600426616279
+    second: logo_metallic_supergame_34
+  - first:
+      213: -760770110453240579
+    second: logo_metallic_supergame_35
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: logo_metallic_supergame_0
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 1283
+        width: 215
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c0a21c52748ce240800000000000000
+      internalID: 4822374927712821448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_1
+      rect:
+        serializedVersion: 2
+        x: 594
+        y: 1288
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c10af892715800a0800000000000000
+      internalID: -6915187675192753723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_2
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 1297
+        width: 49
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6121ee73544c603a0800000000000000
+      internalID: -6699451594096897514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_3
+      rect:
+        serializedVersion: 2
+        x: 729
+        y: 1298
+        width: 15
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39026952ca1ae31c0800000000000000
+      internalID: -4521999215096356717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_4
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 772
+        width: 984
+        height: 487
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18de44abbb42001c0800000000000000
+      internalID: -4539588035686896255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_5
+      rect:
+        serializedVersion: 2
+        x: 884
+        y: 773
+        width: 36
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d880ba4458ed0af30800000000000000
+      internalID: 4584909084627241101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_6
+      rect:
+        serializedVersion: 2
+        x: 886
+        y: 783
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f16e80ba87d33fee0800000000000000
+      internalID: -1228570684867156449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_7
+      rect:
+        serializedVersion: 2
+        x: 1082
+        y: 774
+        width: 25
+        height: 285
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6248322a350ccd30800000000000000
+      internalID: 4452939878802932335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_8
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 596
+        width: 109
+        height: 142
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e6565629a720c550800000000000000
+      internalID: 6178982296198469349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_9
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 571
+        width: 121
+        height: 165
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ea30cdc9aa0d7730800000000000000
+      internalID: 3998363768592546531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_10
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 599
+        width: 112
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1cb8f4bae31af3f60800000000000000
+      internalID: 8016303152276933569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_11
+      rect:
+        serializedVersion: 2
+        x: 445
+        y: 599
+        width: 89
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72de8504795447150800000000000000
+      internalID: 5869392730292546855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_12
+      rect:
+        serializedVersion: 2
+        x: 551
+        y: 599
+        width: 99
+        height: 139
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 841776047b5d54ee0800000000000000
+      internalID: -1277379936253415096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_13
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 599
+        width: 114
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52ab714c6159e8fa0800000000000000
+      internalID: -5796531745367541211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_14
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 599
+        width: 84
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b757eb651585acdc0800000000000000
+      internalID: -3617982244267854469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_15
+      rect:
+        serializedVersion: 2
+        x: 903
+        y: 599
+        width: 99
+        height: 139
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e84347afeb76b320800000000000000
+      internalID: 2573380506322421985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_16
+      rect:
+        serializedVersion: 2
+        x: 998
+        y: 599
+        width: 125
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13fe0ebe2224523e0800000000000000
+      internalID: -2079182935207907535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_17
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 123
+        width: 1011
+        height: 452
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b46806055a63c1fb0800000000000000
+      internalID: -4675802229471410613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_18
+      rect:
+        serializedVersion: 2
+        x: 411
+        y: 550
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ad7d1add85c152f0800000000000000
+      internalID: -985789630377001560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_19
+      rect:
+        serializedVersion: 2
+        x: 412
+        y: 555
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 150a824d9fadd8220800000000000000
+      internalID: 2489886935546896465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_20
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 443
+        width: 19
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95b962e0c0b560220800000000000000
+      internalID: 2451747154484960089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_21
+      rect:
+        serializedVersion: 2
+        x: 1071
+        y: 429
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: beea37bd94a66c890800000000000000
+      internalID: -7438140869108846869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_22
+      rect:
+        serializedVersion: 2
+        x: 1063
+        y: 356
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e031c6b97ea815d0800000000000000
+      internalID: -3091529306409455391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_23
+      rect:
+        serializedVersion: 2
+        x: 1067
+        y: 338
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 168b2a1eb8632bd50800000000000000
+      internalID: 6751518765795686497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_24
+      rect:
+        serializedVersion: 2
+        x: 1077
+        y: 346
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 915c2b68b89a7ee50800000000000000
+      internalID: 6838620975910798617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_25
+      rect:
+        serializedVersion: 2
+        x: 1082
+        y: 348
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aabc13ddfae3731e0800000000000000
+      internalID: -2218235366405452886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_26
+      rect:
+        serializedVersion: 2
+        x: 1076
+        y: 338
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8390596141b518ac0800000000000000
+      internalID: -3854699664216094408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_27
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 170
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b610bb6ac053a21e0800000000000000
+      internalID: -2221905137700765333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_28
+      rect:
+        serializedVersion: 2
+        x: 631
+        y: 162
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd94420e2611eaea0800000000000000
+      internalID: -5859726948797494819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_29
+      rect:
+        serializedVersion: 2
+        x: 633
+        y: 160
+        width: 50
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d46c6be0387637b40800000000000000
+      internalID: 5436802987751556685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_30
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 154
+        width: 12
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3035ea85c3b556c0800000000000000
+      internalID: -4155217420159209409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_31
+      rect:
+        serializedVersion: 2
+        x: 747
+        y: 53
+        width: 31
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a213c2406d917dde0800000000000000
+      internalID: -1308548759744138966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_32
+      rect:
+        serializedVersion: 2
+        x: 773
+        y: 63
+        width: 36
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 199fddc8c24edee90800000000000000
+      internalID: -6994683766243460719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_33
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 43
+        width: 124
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9935711613e1027c0800000000000000
+      internalID: -4098242463476001895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_34
+      rect:
+        serializedVersion: 2
+        x: 730
+        y: 48
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92aebc1deea9475c0800000000000000
+      internalID: -4218576600426616279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo_metallic_supergame_35
+      rect:
+        serializedVersion: 2
+        x: 741
+        y: 51
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfc23b28d933175f0800000000000000
+      internalID: -760770110453240579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      logo_metallic_supergame_0: 4822374927712821448
+      logo_metallic_supergame_1: -6915187675192753723
+      logo_metallic_supergame_10: 8016303152276933569
+      logo_metallic_supergame_11: 5869392730292546855
+      logo_metallic_supergame_12: -1277379936253415096
+      logo_metallic_supergame_13: -5796531745367541211
+      logo_metallic_supergame_14: -3617982244267854469
+      logo_metallic_supergame_15: 2573380506322421985
+      logo_metallic_supergame_16: -2079182935207907535
+      logo_metallic_supergame_17: -4675802229471410613
+      logo_metallic_supergame_18: -985789630377001560
+      logo_metallic_supergame_19: 2489886935546896465
+      logo_metallic_supergame_2: -6699451594096897514
+      logo_metallic_supergame_20: 2451747154484960089
+      logo_metallic_supergame_21: -7438140869108846869
+      logo_metallic_supergame_22: -3091529306409455391
+      logo_metallic_supergame_23: 6751518765795686497
+      logo_metallic_supergame_24: 6838620975910798617
+      logo_metallic_supergame_25: -2218235366405452886
+      logo_metallic_supergame_26: -3854699664216094408
+      logo_metallic_supergame_27: -2221905137700765333
+      logo_metallic_supergame_28: -5859726948797494819
+      logo_metallic_supergame_29: 5436802987751556685
+      logo_metallic_supergame_3: -4521999215096356717
+      logo_metallic_supergame_30: -4155217420159209409
+      logo_metallic_supergame_31: -1308548759744138966
+      logo_metallic_supergame_32: -6994683766243460719
+      logo_metallic_supergame_33: -4098242463476001895
+      logo_metallic_supergame_34: -4218576600426616279
+      logo_metallic_supergame_35: -760770110453240579
+      logo_metallic_supergame_4: -4539588035686896255
+      logo_metallic_supergame_5: 4584909084627241101
+      logo_metallic_supergame_6: -1228570684867156449
+      logo_metallic_supergame_7: 4452939878802932335
+      logo_metallic_supergame_8: 6178982296198469349
+      logo_metallic_supergame_9: 3998363768592546531
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
